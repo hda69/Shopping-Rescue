@@ -112,7 +112,17 @@ async function main(): Promise<void> {
   logger.info('Worker started', {
     pollIntervalMs: POLL_INTERVAL_MS,
     healthPort: getHealthPort(),
+    railwayPort: process.env.PORT ?? null,
+    workerHealthPort: process.env.WORKER_HEALTH_PORT ?? null,
   });
+  // Ensure Railway log drain sees the bind immediately
+  console.log(
+    JSON.stringify({
+      message: 'Health server listening',
+      healthPort: getHealthPort(),
+      timestamp: new Date().toISOString(),
+    }),
+  );
 
   await pollLoop();
 }

@@ -8,13 +8,16 @@ COPY package.json pnpm-workspace.yaml turbo.json tsconfig.json ./
 COPY packages ./packages
 COPY apps/worker ./apps/worker
 
-RUN pnpm install
+RUN pnpm install --filter @shopping-rescue/worker...
 
 WORKDIR /app/apps/worker
 
 ENV NODE_ENV=production
+# Railway injects PORT at runtime; this is only a local/default fallback.
 ENV WORKER_HEALTH_PORT=3001
 
+# Railway public proxy uses $PORT — do not hardcode EXPOSE to a fixed private port only.
 EXPOSE 3001
 
-CMD ["pnpm", "start"]
+# Direct start (avoids pnpm wrapper hang / missing logs on some hosts)
+CMD ["pnpm", "exec", "tsx", "src/server.ts"]
