@@ -3,7 +3,7 @@ import { createLogger } from '@shopping-rescue/shared';
 
 loadEnv();
 import { claimNextJob, closeDb, failJob } from '@shopping-rescue/database';
-import { startHealthServer, stopHealthServer } from './health.js';
+import { startHealthServer, stopHealthServer, getHealthPort } from './health.js';
 import { getHandler } from './handlers/index.js';
 
 const POLL_INTERVAL_MS = 2000;
@@ -111,7 +111,7 @@ async function main(): Promise<void> {
   await startHealthServer();
   logger.info('Worker started', {
     pollIntervalMs: POLL_INTERVAL_MS,
-    healthPort: process.env.WORKER_HEALTH_PORT ?? 3001,
+    healthPort: getHealthPort(),
   });
 
   await pollLoop();

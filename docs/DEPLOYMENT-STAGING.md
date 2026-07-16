@@ -372,6 +372,24 @@ RAILWAY_DOCKERFILE_PATH=apps/worker/Dockerfile
 
 ---
 
+### Health URL worker = 404 / ne marche pas
+
+**Cause :** Railway expose le domaine public sur la variable `PORT`. Le worker écoutait seulement sur `WORKER_HEALTH_PORT=3001` → le proxy renvoie **404**.
+
+**Correction (déjà dans le code) :** le health server utilise `PORT` (Railway) en priorité, sinon `WORKER_HEALTH_PORT`, sinon `3001`, et écoute sur `0.0.0.0`.
+
+Après push + redeploy du worker :
+
+1. Vérifie dans les **logs worker** : `Worker started` avec `healthPort` = la valeur de `PORT` Railway
+2. Ouvre : `https://shopping-rescue-worker-staging.up.railway.app/health`
+3. Attendu : `{"status":"ok","queuedJobCount":0}` (ou 503 si DB pas liée)
+
+Sur Railway worker → **Settings** → **Networking** :
+- domaine public généré
+- pas besoin de forcer le port 3001 si le code utilise `PORT`
+
+---
+
 ### Scan bloqué / worker offline
 
 - Vérifier `WORKER_HEALTH_URL` sur **web** pointe vers le bon domaine worker

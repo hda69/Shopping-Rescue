@@ -119,6 +119,10 @@ Registered job handlers:
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the full job lifecycle and handler roadmap.
 
+## Staging deployment
+
+See [docs/DEPLOYMENT-STAGING.md](docs/DEPLOYMENT-STAGING.md) for Railway setup (PostgreSQL + web + worker).
+
 ## Documentation
 
 - [Product spec](docs/PRODUCT_SPEC.md)
@@ -126,6 +130,7 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the full job lifecycle and 
 - [Database schema](docs/DATABASE.md)
 - [Security](docs/SECURITY.md)
 - [Implementation plan](docs/IMPLEMENTATION_PLAN.md)
+- [Staging deployment](docs/DEPLOYMENT-STAGING.md)
 
 ## License
 
