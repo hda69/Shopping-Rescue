@@ -27,8 +27,9 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 
-RUN addgroup --system --gid 1001 nodejs && \
-    adduser --system --uid 1001 nextjs
+# Playwright base image already uses uid/gid 1000/1001 — pick free IDs
+RUN groupadd --system --gid 10001 nodejs && \
+    useradd --system --uid 10001 --gid nodejs --create-home --home-dir /home/nextjs nextjs
 
 COPY --from=builder /app/apps/web/public ./apps/web/public
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
