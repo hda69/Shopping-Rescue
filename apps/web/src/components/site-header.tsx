@@ -1,0 +1,81 @@
+import Link from 'next/link';
+
+import { getMessages } from '@/config/messages';
+import type { AppLocale } from '@/lib/locale';
+import { localizePath } from '@/lib/locale';
+import { LanguageSwitcher } from '@/components/language-switcher';
+import { SiteLogo } from '@/components/site-logo';
+
+interface SiteHeaderProps {
+  variant?: 'dark' | 'light';
+  locale?: AppLocale;
+}
+
+export function SiteHeader({ variant = 'light', locale = 'en' }: SiteHeaderProps) {
+  const isDark = variant === 'dark';
+  const m = getMessages(locale);
+  const homeHref = localizePath('/', locale);
+  const freeScanHref = localizePath('/free-scan', locale);
+  const howItWorksAnchor = locale === 'fr' ? '/fr#how-it-works' : '/#how-it-works';
+  const pricingAnchor = locale === 'fr' ? '/fr#pricing' : '/#pricing';
+
+  return (
+    <header
+      className={`sticky top-0 z-50 border-b ${
+        isDark
+          ? 'border-white/10 bg-[#0b0d14]/70 backdrop-blur-xl'
+          : 'border-white/60 bg-white/55 backdrop-blur-xl'
+      }`}
+    >
+      <div className="section-container flex h-16 items-center justify-between gap-3">
+        <SiteLogo
+          href={homeHref}
+          size="sm"
+          priority={isDark}
+          wordmarkClassName={
+            isDark
+              ? 'hidden sm:inline text-base [&>span:first-child]:text-white'
+              : 'hidden sm:inline text-base'
+          }
+        />
+        <nav className="hidden items-center gap-2 sm:flex">
+          <LanguageSwitcher
+            locale={locale}
+            label={m.common.languageLabel}
+            englishLabel={m.common.english}
+            frenchLabel={m.common.french}
+            variant={variant}
+          />
+          <a
+            href={howItWorksAnchor}
+            className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+              isDark
+                ? 'text-white/70 hover:bg-white/10 hover:text-white'
+                : 'text-[#6e6e73] hover:bg-black/5 hover:text-[#111]'
+            }`}
+          >
+            {m.common.howItWorks}
+          </a>
+          <a
+            href={pricingAnchor}
+            className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+              isDark
+                ? 'text-white/70 hover:bg-white/10 hover:text-white'
+                : 'text-[#6e6e73] hover:bg-black/5 hover:text-[#111]'
+            }`}
+          >
+            {m.common.pricing}
+          </a>
+          <Link
+            href={freeScanHref}
+            className={
+              isDark ? 'btn-glass-primary px-4 py-2 text-sm' : 'btn-glass-accent px-4 py-2 text-sm'
+            }
+          >
+            {m.common.startFreeScan}
+          </Link>
+        </nav>
+      </div>
+    </header>
+  );
+}

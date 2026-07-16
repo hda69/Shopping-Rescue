@@ -1,0 +1,33 @@
+{
+  "name": "@shopping-rescue/reporting",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./pdf": "./src/pdf-generator.ts",
+    "./pdf/node": "./src/pdf-node.ts"
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test:unit": "vitest run",
+    "pdf:fixture": "tsx scripts/generate-fixture-pdf.ts",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.2.5",
+    "@shopping-rescue/shared": "workspace:*",
+    "playwright": "^1.49.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

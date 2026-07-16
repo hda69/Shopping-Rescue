@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+.next/
+out/
+.turbo/
+*.tsbuildinfo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage/
+test-results/
+playwright-report/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Docker
+docker-data/
+
+# Playwright
+playwright/.cache/
+
+# Sentry
+.sentryclirc

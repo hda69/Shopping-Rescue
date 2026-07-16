@@ -1,0 +1,51 @@
+services:
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-shopping_rescue}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-shopping_rescue}
+      POSTGRES_DB: ${POSTGRES_DB:-shopping_rescue}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U shopping_rescue -d shopping_rescue']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://shopping_rescue:shopping_rescue@postgres:5432/shopping_rescue
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  worker:
+    build:
+      context: .
+      dockerfile: apps/worker/Dockerfile
+    restart: unless-stopped
+    ports:
+      - '3001:3001'
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://shopping_rescue:shopping_rescue@postgres:5432/shopping_rescue
+      WORKER_HEALTH_PORT: 3001
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
