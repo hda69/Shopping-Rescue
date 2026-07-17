@@ -3,11 +3,12 @@ import { freeScanSchema, isValidUrl } from '@shopping-rescue/shared/validation';
 import { createFreeScan, formatDbError } from '@shopping-rescue/database';
 import { NextResponse } from 'next/server';
 import { localizePath, parseLocaleParam } from '@/lib/locale';
+import { appUrl } from '@/lib/app-url';
 
 loadEnv();
 
 function redirectToFreeScan(request: Request, locale: 'en' | 'fr', error: string, message?: string) {
-  const url = new URL(localizePath('/free-scan', locale), request.url);
+  const url = appUrl(localizePath('/free-scan', locale), request);
   url.searchParams.set('error', error);
   if (message) url.searchParams.set('message', message);
   return NextResponse.redirect(url, 303);
@@ -38,10 +39,7 @@ export async function POST(request: Request) {
 
   try {
     const scan = await createFreeScan(result.data);
-    return NextResponse.redirect(
-      new URL(localizePath(`/scan/${scan.scanId}`, locale), request.url),
-      303,
-    );
+    return NextResponse.redirect(appUrl(localizePath(`/scan/${scan.scanId}`, locale), request), 303);
   } catch (error) {
     return redirectToFreeScan(request, locale, 'server', formatDbError(error));
   }

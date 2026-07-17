@@ -119,6 +119,7 @@ export const MESSAGES_FR = {
     mcIssue: 'Problème Merchant Center (le cas échéant)',
     reviewRequests: 'Demandes de réexamen déjà soumises',
     submit: 'Lancer le scan gratuit',
+    submitting: 'Démarrage du scan…',
     consent:
       'En soumettant ce formulaire, vous acceptez l’analyse de votre boutique publique. Nous n’accédons jamais à vos mots de passe Google ou Shopify.',
     errors: {

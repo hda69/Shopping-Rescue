@@ -2,6 +2,7 @@ import { loadEnv } from '@shopping-rescue/shared/load-env';
 import { startFullAuditCheckout } from '@/lib/checkout';
 import { NextResponse } from 'next/server';
 import { localizePath, parseLocaleParam } from '@/lib/locale';
+import { appUrl } from '@/lib/app-url';
 
 loadEnv();
 
@@ -11,7 +12,7 @@ function redirectToScan(
   locale: 'en' | 'fr',
   error?: string,
 ) {
-  const url = new URL(localizePath(`/scan/${scanId}`, locale), request.url);
+  const url = appUrl(localizePath(`/scan/${scanId}`, locale), request);
   if (error) {
     url.searchParams.set('checkoutError', error);
   }
@@ -25,7 +26,7 @@ async function handleCheckout(
 ) {
   if (!scanId) {
     return NextResponse.redirect(
-      new URL(`${localizePath('/free-scan', locale)}?error=missing_scan`, request.url),
+      appUrl(`${localizePath('/free-scan', locale)}?error=missing_scan`, request),
       303,
     );
   }

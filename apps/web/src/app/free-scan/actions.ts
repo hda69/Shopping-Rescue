@@ -8,6 +8,28 @@ import { localizePath, parseLocaleParam } from '@shopping-rescue/shared/i18n';
 
 loadEnv();
 
+function redirectWithError(
+  locale: 'en' | 'fr',
+  error: string,
+  formData: FormData,
+  message?: string,
+): never {
+  const params = new URLSearchParams({ error });
+  if (message) params.set('message', message);
+
+  const url = formData.get('url')?.toString();
+  const email = formData.get('email')?.toString();
+  const platform = formData.get('platform')?.toString();
+  const mcIssueType = formData.get('mcIssueType')?.toString();
+
+  if (url) params.set('url', url);
+  if (email) params.set('email', email);
+  if (platform) params.set('platform', platform);
+  if (mcIssueType) params.set('issue', mcIssueType);
+
+  redirect(`${localizePath('/free-scan', locale)}?${params.toString()}`);
+}
+
 export async function startFreeScan(formData: FormData) {
   const locale = parseLocaleParam(formData.get('locale')?.toString());
   const raw = {
@@ -23,22 +45,18 @@ export async function startFreeScan(formData: FormData) {
   const result = freeScanSchema.safeParse(raw);
 
   if (!result.success) {
-    const params = new URLSearchParams({ error: 'validation' });
-    redirect(`${localizePath('/free-scan', locale)}?${params.toString()}`);
+    redirectWithError(locale, 'validation', formData);
   }
 
   if (!isValidUrl(result.data.url)) {
-    const params = new URLSearchParams({ error: 'invalid_url' });
-    redirect(`${localizePath('/free-scan', locale)}?${params.toString()}`);
+    redirectWithError(locale, 'invalid_url', formData);
   }
 
   let scan;
   try {
     scan = await createFreeScan(result.data);
   } catch (error) {
-    const message = formatDbError(error);
-    const params = new URLSearchParams({ error: 'server', message });
-    redirect(`${localizePath('/free-scan', locale)}?${params.toString()}`);
+    redirectWithError(locale, 'server', formData, formatDbError(error));
   }
 
   redirect(localizePath(`/scan/${scan.scanId}`, locale));

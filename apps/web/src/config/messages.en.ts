@@ -115,6 +115,7 @@ export const MESSAGES_EN = {
     mcIssue: 'Merchant Center issue (if any)',
     reviewRequests: 'Review requests already submitted',
     submit: 'Start free scan',
+    submitting: 'Starting scan…',
     consent:
       'By submitting, you agree to our analysis of your public storefront. We never access your Google or Shopify passwords.',
     errors: {

@@ -1,27 +1,30 @@
-import Link from 'next/link';
-
 import { getMessages } from '@/config/messages';
 import type { AppLocale } from '@/lib/locale';
 import { localizePath } from '@/lib/locale';
+import { FreeScanNavLink } from '@/components/free-scan-nav-link';
 import { LanguageSwitcher } from '@/components/language-switcher';
 import { SiteLogo } from '@/components/site-logo';
 
 interface SiteHeaderProps {
   variant?: 'dark' | 'light';
   locale?: AppLocale;
+  sticky?: boolean;
 }
 
-export function SiteHeader({ variant = 'light', locale = 'en' }: SiteHeaderProps) {
+export function SiteHeader({
+  variant = 'light',
+  locale = 'en',
+  sticky = true,
+}: SiteHeaderProps) {
   const isDark = variant === 'dark';
   const m = getMessages(locale);
   const homeHref = localizePath('/', locale);
-  const freeScanHref = localizePath('/free-scan', locale);
   const howItWorksAnchor = locale === 'fr' ? '/fr#how-it-works' : '/#how-it-works';
   const pricingAnchor = locale === 'fr' ? '/fr#pricing' : '/#pricing';
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b ${
+      className={`${sticky ? 'sticky top-0 z-50' : 'relative z-10'} border-b ${
         isDark
           ? 'border-white/10 bg-[#0b0d14]/70 backdrop-blur-xl'
           : 'border-white/60 bg-white/55 backdrop-blur-xl'
@@ -66,14 +69,13 @@ export function SiteHeader({ variant = 'light', locale = 'en' }: SiteHeaderProps
           >
             {m.common.pricing}
           </a>
-          <Link
-            href={freeScanHref}
+          <FreeScanNavLink
+            locale={locale}
+            label={m.common.startFreeScan}
             className={
               isDark ? 'btn-glass-primary px-4 py-2 text-sm' : 'btn-glass-accent px-4 py-2 text-sm'
             }
-          >
-            {m.common.startFreeScan}
-          </Link>
+          />
         </nav>
       </div>
     </header>

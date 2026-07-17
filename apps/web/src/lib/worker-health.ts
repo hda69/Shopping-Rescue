@@ -1,5 +1,7 @@
 const WORKER_HEALTH_URL =
-  process.env.WORKER_HEALTH_URL ?? 'http://127.0.0.1:3001/health';
+  process.env.WORKER_HEALTH_URL ??
+  process.env.worker_health_url ??
+  'http://127.0.0.1:3001/health';
 
 export async function checkWorkerHealth(): Promise<{
   online: boolean;

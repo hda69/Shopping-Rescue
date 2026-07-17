@@ -24,7 +24,14 @@ export const metadata: Metadata = {
 export default async function FrenchFreeScanPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string; issue?: string; platform?: string; message?: string }>;
+  searchParams: Promise<{
+    error?: string;
+    issue?: string;
+    platform?: string;
+    message?: string;
+    url?: string;
+    email?: string;
+  }>;
 }) {
   const params = await searchParams;
   const dbHealth = await checkDbHealth();
@@ -36,6 +43,8 @@ export default async function FrenchFreeScanPage({
       message={params.message}
       issue={params.issue}
       platform={params.platform}
+      url={params.url}
+      email={params.email}
       dbOfflineMessage={dbHealth.ok ? undefined : dbHealth.message}
     />
   );
