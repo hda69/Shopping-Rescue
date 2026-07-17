@@ -17,7 +17,7 @@
     "@shopping-rescue/reporting": "workspace:*",
     "@shopping-rescue/shared": "workspace:*",
     "next": "^15.1.3",
-    "playwright": "^1.49.1",
+    "playwright": "1.61.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "server-only": "^0.0.1"

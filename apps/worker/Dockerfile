@@ -1,14 +1,14 @@
-FROM mcr.microsoft.com/playwright:v1.49.1-noble
+FROM mcr.microsoft.com/playwright:v1.61.1-noble
 
 WORKDIR /app
 
 RUN corepack enable && corepack prepare pnpm@9.15.0 --activate
 
-COPY package.json pnpm-workspace.yaml turbo.json tsconfig.json ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json tsconfig.json ./
 COPY packages ./packages
 COPY apps/worker ./apps/worker
 
-RUN pnpm install --filter @shopping-rescue/worker...
+RUN pnpm install --frozen-lockfile --filter @shopping-rescue/worker...
 
 WORKDIR /app/apps/worker
 

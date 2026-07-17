@@ -23,7 +23,7 @@ ENV NODE_ENV=production
 RUN pnpm --filter @shopping-rescue/web build
 
 # Playwright image includes Chromium — required for PDF generation on /api/reports/*/pdf
-FROM mcr.microsoft.com/playwright:v1.49.1-noble AS runner
+FROM mcr.microsoft.com/playwright:v1.61.1-noble AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production

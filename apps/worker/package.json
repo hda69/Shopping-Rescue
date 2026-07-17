@@ -17,7 +17,7 @@
     "@shopping-rescue/rules-engine": "workspace:*",
     "@shopping-rescue/scanner": "workspace:*",
     "@shopping-rescue/shared": "workspace:*",
-    "playwright": "^1.49.1"
+    "playwright": "1.61.1"
   },
   "devDependencies": {
     "tsx": "^4.19.2",

@@ -138,7 +138,7 @@ Ouvrir le service worker → **Settings** → **Build** :
 Fichier : `apps/worker/Dockerfile`
 
 ```dockerfile
-FROM mcr.microsoft.com/playwright:v1.49.1-noble   # Chromium + deps système
+FROM mcr.microsoft.com/playwright:v1.61.1-noble   # Chromium + deps système
 WORKDIR /app
 RUN corepack enable && corepack prepare pnpm@9.15.0 --activate
 COPY package.json pnpm-workspace.yaml turbo.json tsconfig.json ./
