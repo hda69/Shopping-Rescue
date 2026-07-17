@@ -14,8 +14,12 @@ FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/apps ./apps
 COPY --from=deps /app/packages ./packages
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json tsconfig.json ./
+COPY --from=deps /app/package.json /app/pnpm-lock.yaml /app/pnpm-workspace.yaml /app/turbo.json ./
+COPY tsconfig.json ./
+# pnpm workspace package links live under node_modules/.pnpm — copy store metadata too
+COPY --from=deps /app/packages ./packages
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
 RUN pnpm --filter @shopping-rescue/web build
 
 # Playwright image includes Chromium — required for PDF generation on /api/reports/*/pdf
@@ -24,8 +28,8 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
+# Railway injects PORT at runtime (often 8080). Do not force 3000.
 
 # Playwright base image already uses uid/gid 1000/1001 — pick free IDs
 RUN groupadd --system --gid 10001 nodejs && \

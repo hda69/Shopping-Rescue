@@ -32,36 +32,64 @@ Repo GitHub : `https://github.com/hda69/Shopping-Rescue`
 
 ---
 
-## 3. Service **web**
+## 3. Service **web** (détaillé)
 
-1. **+ New** → **GitHub Repo** → même repo
-2. **Settings** → **Build** :
-   - **Builder** : **Dockerfile** (⚠️ pas Railpack — voir [Dépannage Railpack](#dépannage-railpack--no-start-command-detected))
+> **État actuel du projet Railway `amusing-enchantment` :**  
+> le service nommé `Shopping-Rescue` tourne déjà le **worker**  
+> (`https://shopping-rescue-production.up.railway.app/health` → OK).  
+> Il faut un **2ᵉ service** pour le site Next.js.
+
+### 3.1 Créer le service
+
+1. **+ New** → **GitHub Repo** → `hda69/Shopping-Rescue`
+2. Branche : **`feat/i18n-fr-en-complete`**
+3. **Settings** → **Build** :
+   - **Builder** : **Dockerfile** (pas Railpack)
    - **Root Directory** : `/` (racine)
    - **Dockerfile Path** : `apps/web/Dockerfile`
    - **Config file** (si proposé) : `apps/web/railway.json`
-3. **Networking** → **Generate Domain** (ex. `shopping-rescue-web-staging.up.railway.app`)
-4. Variables d'environnement :
+4. **Networking** → **Generate Domain**  
+   Exemple : `shopping-rescue-web-xxxx.up.railway.app`  
+   (pas besoin de domaine custom en staging)
+5. (Optionnel) renommer le service → `web`
+
+### 3.2 Variables web
 
 ```env
 NODE_ENV=production
 DATABASE_URL=${{Postgres.DATABASE_URL}}
-NEXT_PUBLIC_APP_URL=https://VOTRE-DOMAINE-WEB.up.railway.app
+NEXT_PUBLIC_APP_URL=https://TON-DOMAINE-WEB.up.railway.app
 
-# Stripe (mode test pour staging)
+# Worker déjà en ligne sur le service Shopping-Rescue :
+WORKER_HEALTH_URL=https://shopping-rescue-production.up.railway.app/health
+
+# Stripe (mode test)
 STRIPE_SECRET_KEY=sk_test_...
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
 STRIPE_WEBHOOK_SECRET=whsec_...
 STRIPE_PRICE_FULL_AUDIT=price_...
 
-# Worker health (URL publique du service worker — voir étape 4)
-WORKER_HEALTH_URL=https://VOTRE-DOMAINE-WORKER.up.railway.app/health
-
-# Jamais en staging public si vous testez le vrai checkout
 BILLING_DEV_UNLOCK=false
 ```
 
-5. **Deploy**
+Après le premier domain généré, mets à jour `NEXT_PUBLIC_APP_URL` avec l’URL réelle, puis **Redeploy**.
+
+### 3.3 Vérifier le deploy
+
+| Check | Attendu |
+|-------|---------|
+| Build logs | plus d’erreur `GID 1001` |
+| Runtime | pas de crash immédiat |
+| `GET https://TON-DOMAINE-WEB/api/health` | `"database":"connected"` |
+| `GET https://TON-DOMAINE-WEB/` | page d’accueil Shopping Rescue |
+
+### 3.4 Erreurs build web fréquentes
+
+| Erreur | Fix |
+|--------|-----|
+| `GID 1001 is already in use` | déjà corrigé (UID 10001) — branche à jour |
+| Railpack / No start command | Builder = **Dockerfile** |
+| Build long / timeout | image Playwright lourde — attendre 5–10 min |
 
 ---
 
@@ -75,7 +103,7 @@ Le **worker** est indispensable en staging : sans lui, les scans restent bloqué
 |----------|--------|
 | Polling jobs | Lit la file PostgreSQL toutes les ~2 s |
 | `FREE_SITE_SCAN` | Crawl Playwright + règles + score + email (si Resend) |
-| Health HTTP | `GET /health` sur le port `3001` |
+| Health HTTP | `GET /health` sur le port Railway (`PORT`, souvent 8080) |
 
 Le service **web** appelle `WORKER_HEALTH_URL` pour afficher « worker online/offline » sur la page résultats.
 
@@ -387,6 +415,15 @@ Après push + redeploy du worker :
 Sur Railway worker → **Settings** → **Networking** :
 - domaine public généré
 - pas besoin de forcer le port 3001 si le code utilise `PORT`
+
+### Vérifier que les tables existent (PowerShell)
+
+```powershell
+$env:DATABASE_URL="postgresql://postgres:MOT_DE_PASSE@tokaido.proxy.rlwy.net:51591/railway"
+pnpm --filter @shopping-rescue/database exec tsx ./scripts/check-tables.ts
+```
+
+Attendu : `OK: scan_jobs exists`
 
 ---
 

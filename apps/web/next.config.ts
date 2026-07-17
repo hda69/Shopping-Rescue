@@ -1,5 +1,5 @@
 import { config as loadDotenv } from 'dotenv';
-import { resolve } from 'path';
+import { resolve, join } from 'path';
 import type { NextConfig } from 'next';
 
 loadDotenv({ path: resolve(__dirname, '../../.env') });
@@ -19,6 +19,8 @@ const SHOPPING_RESCUE_PACKAGES = [
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  // Required for correct standalone tracing in a pnpm monorepo
+  outputFileTracingRoot: join(__dirname, '../..'),
   transpilePackages: SHOPPING_RESCUE_PACKAGES,
   serverExternalPackages: ['postgres', 'drizzle-orm', 'playwright', 'playwright-core'],
   poweredByHeader: false,
