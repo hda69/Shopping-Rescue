@@ -400,6 +400,21 @@ async function crawlSiteInternal(
 
     const { html, status, timeMs } = result;
     const pageUrl = result.finalUrl ?? nextUrl;
+    let normalizedPageUrl: string;
+    try {
+      normalizedPageUrl = normalizeUrl(pageUrl);
+    } catch {
+      normalizedPageUrl = pageUrl;
+    }
+
+    // Redirects can collapse several queue URLs onto the same final page.
+    if (visited.has(normalizedPageUrl) && normalizedPageUrl !== nextUrl) {
+      processedPages += 1;
+      await emitProgress();
+      continue;
+    }
+    visited.add(normalizedPageUrl);
+
     if (pages.length === 0) {
       platform = detectPlatform(html, nextUrl);
     }
@@ -409,7 +424,7 @@ async function crawlSiteInternal(
 
     pages.push({
       url: pageUrl,
-      normalizedUrl: pageUrl,
+      normalizedUrl: normalizedPageUrl,
       pageType: detectPageType(new URL(pageUrl).pathname),
       httpStatus: status,
       title: extractTitle(html),

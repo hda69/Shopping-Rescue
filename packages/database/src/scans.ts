@@ -218,9 +218,21 @@ export async function saveCrawlResults(
 ) {
   const db = getDb();
 
-  if (pages.length > 0) {
+  // Idempotent retries: clear prior crawl rows for this scan before insert.
+  await db.delete(scanProducts).where(eq(scanProducts.scanId, scanId));
+  await db.delete(scanPages).where(eq(scanPages.scanId, scanId));
+
+  const uniquePages = new Map<string, PageInput>();
+  for (const page of pages) {
+    if (!uniquePages.has(page.normalizedUrl)) {
+      uniquePages.set(page.normalizedUrl, page);
+    }
+  }
+
+  const pagesToInsert = [...uniquePages.values()];
+  if (pagesToInsert.length > 0) {
     await db.insert(scanPages).values(
-      pages.map((p) => ({
+      pagesToInsert.map((p) => ({
         scanId,
         url: p.url,
         normalizedUrl: p.normalizedUrl,
@@ -237,9 +249,17 @@ export async function saveCrawlResults(
     );
   }
 
-  if (products.length > 0) {
+  const uniqueProducts = new Map<string, ProductInput>();
+  for (const product of products) {
+    if (!uniqueProducts.has(product.url)) {
+      uniqueProducts.set(product.url, product);
+    }
+  }
+
+  const productsToInsert = [...uniqueProducts.values()];
+  if (productsToInsert.length > 0) {
     await db.insert(scanProducts).values(
-      products.map((p) => ({
+      productsToInsert.map((p) => ({
         scanId,
         url: p.url,
         title: p.title,
@@ -270,6 +290,7 @@ export interface FindingInput {
 
 export async function saveFindings(scanId: string, findingInputs: FindingInput[]) {
   const db = getDb();
+  await db.delete(findings).where(eq(findings.scanId, scanId));
   if (findingInputs.length === 0) return [];
 
   const inserted = await db
