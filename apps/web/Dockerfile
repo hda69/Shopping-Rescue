@@ -38,6 +38,9 @@ RUN groupadd --system --gid 10001 nodejs && \
 COPY --from=builder /app/apps/web/public ./apps/web/public
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
+# PDF print route reads these at runtime (not always traced into standalone)
+COPY --from=builder --chown=nextjs:nodejs /app/packages/reporting/src/pdf/assets ./packages/reporting/src/pdf/assets
+COPY --from=builder --chown=nextjs:nodejs /app/packages/reporting/src/pdf/report.css ./packages/reporting/src/pdf/report.css
 
 USER nextjs
 EXPOSE 3000

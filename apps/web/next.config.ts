@@ -21,6 +21,16 @@ const nextConfig: NextConfig = {
   output: 'standalone',
   // Required for correct standalone tracing in a pnpm monorepo
   outputFileTracingRoot: join(__dirname, '../..'),
+  outputFileTracingIncludes: {
+    '/print/report/[scanId]': [
+      '../../packages/reporting/src/pdf/assets/**/*',
+      '../../packages/reporting/src/pdf/report.css',
+    ],
+    '/api/reports/[scanId]/pdf': [
+      '../../packages/reporting/src/pdf/assets/**/*',
+      '../../packages/reporting/src/pdf/report.css',
+    ],
+  },
   transpilePackages: SHOPPING_RESCUE_PACKAGES,
   serverExternalPackages: ['postgres', 'drizzle-orm', 'playwright', 'playwright-core'],
   poweredByHeader: false,

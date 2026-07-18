@@ -2,6 +2,8 @@ import 'server-only';
 
 import type { Browser } from 'playwright';
 
+import { getAppBaseUrl } from '@/lib/app-url';
+
 async function loadChromium() {
   const { chromium } = await import('playwright');
   return chromium;
@@ -11,20 +13,18 @@ async function launchBrowser(): Promise<Browser> {
   const chromium = await loadChromium();
   const options = {
     headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
     ...(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH
       ? { executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH }
       : {}),
   };
 
   try {
-    return await chromium.launch({ ...options, channel: 'chrome' });
+    return await chromium.launch(options);
   } catch {
-    return chromium.launch(options);
+    // Fallback for local Windows Chrome installs
+    return chromium.launch({ ...options, channel: 'chrome' });
   }
-}
-
-function getAppBaseUrl(): string {
-  return process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
 }
 
 export async function printUrlToPdf(url: string): Promise<Buffer> {
@@ -35,7 +35,12 @@ export async function printUrlToPdf(url: string): Promise<Buffer> {
       viewport: { width: 1440, height: 2000 },
     });
 
-    await page.goto(url, { waitUntil: 'networkidle', timeout: 60_000 });
+    const response = await page.goto(url, { waitUntil: 'networkidle', timeout: 60_000 });
+    if (!response || !response.ok()) {
+      const status = response?.status() ?? 'no-response';
+      throw new Error(`Print page failed (${status}) for ${url}`);
+    }
+
     await page.evaluate(async () => {
       await document.fonts.ready;
     });
