@@ -6,11 +6,13 @@ export {
   getAppUrl,
   type Stripe,
 } from './stripe-client';
-export { isStripeConfigured, isNextNavigationError } from './config';
+export { isStripeConfigured, isMonitoringStripeConfigured, isNextNavigationError } from './config';
 export {
   createFullAuditCheckoutSession,
+  createMonitoringProCheckoutSession,
   retrieveCheckoutSession,
   type FullAuditCheckoutParams,
+  type MonitoringProCheckoutParams,
 } from './checkout';
 export {
   verifyStripeWebhook,

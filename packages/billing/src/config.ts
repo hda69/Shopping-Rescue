@@ -27,3 +27,10 @@ export function isStripeConfigured(): boolean {
 
   return true;
 }
+
+export function isMonitoringStripeConfigured(): boolean {
+  if (!isStripeConfigured()) return false;
+  const priceId = process.env.STRIPE_PRICE_MONITORING_PRO;
+  if (!priceId || isPlaceholderEnvValue(priceId)) return false;
+  return priceId.startsWith('price_');
+}

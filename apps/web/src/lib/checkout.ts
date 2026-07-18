@@ -1,17 +1,23 @@
 import { loadEnv } from '@shopping-rescue/shared/load-env';
 import {
   createFullAuditCheckoutSession,
+  createMonitoringProCheckoutSession,
+  isMonitoringStripeConfigured,
   isStripeConfigured,
   retrieveCheckoutSession,
+  getStripeClient,
 } from '@shopping-rescue/billing';
 import {
+  activateMonitoringSubscription,
   completePurchaseForSession,
   createPendingPurchase,
   getScanForCheckout,
   getScanWithSite,
+  prepareMonitoringCheckoutFromScan,
   unlockScanReport,
 } from '@shopping-rescue/database';
 import { PLAN_PRICES_CENTS } from '@shopping-rescue/shared';
+import type { Stripe } from '@shopping-rescue/billing';
 
 loadEnv();
 
@@ -68,6 +74,47 @@ export async function startFullAuditCheckout(
   return url;
 }
 
+export async function startMonitoringProCheckout(
+  scanId: string,
+  locale: 'en' | 'fr' = 'en',
+): Promise<string> {
+  if (!isMonitoringStripeConfigured()) {
+    throw new Error(
+      'Monitoring Pro Stripe price is not configured. Add STRIPE_PRICE_MONITORING_PRO to your .env file.',
+    );
+  }
+
+  const prepared = await prepareMonitoringCheckoutFromScan(scanId);
+  const { url } = await createMonitoringProCheckoutSession({
+    scanId,
+    organizationId: prepared.organizationId,
+    siteId: prepared.siteId,
+    customerEmail: prepared.email,
+    locale: locale || prepared.locale,
+  });
+
+  return url;
+}
+
+function toDate(unixSeconds: number | null | undefined): Date | null {
+  if (!unixSeconds) return null;
+  return new Date(unixSeconds * 1000);
+}
+
+function getSubscriptionPeriod(subscription: Stripe.Subscription): {
+  start: Date | null;
+  end: Date | null;
+} {
+  const raw = subscription as Stripe.Subscription & {
+    current_period_start?: number;
+    current_period_end?: number;
+  };
+  return {
+    start: toDate(raw.current_period_start ?? subscription.billing_cycle_anchor),
+    end: toDate(raw.current_period_end ?? subscription.cancel_at),
+  };
+}
+
 export async function verifyCheckoutSessionAndUnlock(
   sessionId: string,
   scanId: string,
@@ -81,6 +128,12 @@ export async function verifyCheckoutSessionAndUnlock(
     return false;
   }
 
+  const plan = session.metadata?.plan;
+
+  if (plan === 'monitoring_pro' || session.mode === 'subscription') {
+    return verifyMonitoringCheckoutSession(session, scanId);
+  }
+
   if (session.payment_status !== 'paid') {
     return false;
   }
@@ -92,6 +145,51 @@ export async function verifyCheckoutSessionAndUnlock(
 
   await completePurchaseForSession(session.id, paymentIntentId);
   return true;
+}
+
+async function verifyMonitoringCheckoutSession(
+  session: Stripe.Checkout.Session,
+  scanId: string,
+): Promise<boolean> {
+  const organizationId = session.metadata?.organizationId;
+  const siteId = session.metadata?.siteId;
+  if (!organizationId || !siteId) return false;
+
+  const subscriptionId =
+    typeof session.subscription === 'string'
+      ? session.subscription
+      : session.subscription?.id;
+  const customerId =
+    typeof session.customer === 'string' ? session.customer : session.customer?.id;
+
+  if (!subscriptionId || !customerId) return false;
+
+  const stripe = getStripeClient();
+  const subscription = (await stripe.subscriptions.retrieve(
+    subscriptionId,
+  )) as Stripe.Subscription;
+  const period = getSubscriptionPeriod(subscription);
+
+  const email =
+    session.metadata?.customerEmail ||
+    session.customer_details?.email ||
+    session.customer_email ||
+    '';
+
+  await activateMonitoringSubscription({
+    organizationId,
+    siteId,
+    scanId,
+    stripeSubscriptionId: subscription.id,
+    stripeCustomerId: customerId,
+    email,
+    status: subscription.status,
+    currentPeriodStart: period.start,
+    currentPeriodEnd: period.end,
+    cancelAtPeriodEnd: subscription.cancel_at_period_end,
+  });
+
+  return ['active', 'trialing'].includes(subscription.status);
 }
 
 export async function getCheckoutScanSummary(scanId: string) {

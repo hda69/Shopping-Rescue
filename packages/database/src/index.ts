@@ -3,5 +3,6 @@ export { getDb, closeDb } from './client';
 export * from './jobs';
 export * from './scans';
 export * from './billing';
+export * from './subscriptions';
 export { formatDbError } from './db-errors';
 export { checkDbHealth } from './db-health';

@@ -12,3 +12,8 @@ export {
   type SendScanCompletedEmailInput,
   type SendScanCompletedEmailResult,
 } from './send-scan-completed.js';
+export { buildRiskAlertEmail } from './templates/risk-alert.js';
+export {
+  sendRiskAlertEmail,
+  type SendRiskAlertEmailInput,
+} from './send-risk-alert.js';

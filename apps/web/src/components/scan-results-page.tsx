@@ -297,21 +297,31 @@ export function ScanResultsPageContent({
                     {m.scan.lockedTitle.replace('{count}', String(data.lockedFindingsCount))}
                   </p>
                   <p className="mt-2 text-sm text-gray-600">{m.scan.lockedSub}</p>
-                  {stripeReady ? (
-                    <a
-                      href={`/api/checkout?scanId=${encodeURIComponent(data.scanId)}&locale=${locale}`}
-                      className="btn-primary mt-4 inline-block"
-                    >
-                      {m.scan.unlockFullReport}
-                    </a>
-                  ) : (
-                    <Link
-                      href={`${pricingHref}?scanId=${data.scanId}`}
-                      className="btn-primary mt-4 inline-block"
-                    >
-                      {m.common.viewPricing}
-                    </Link>
-                  )}
+                  <div className="mt-4 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                    {stripeReady ? (
+                      <a
+                        href={`/api/checkout?scanId=${encodeURIComponent(data.scanId)}&locale=${locale}`}
+                        className="btn-primary inline-block"
+                      >
+                        {m.scan.unlockFullReport}
+                      </a>
+                    ) : (
+                      <Link
+                        href={`${pricingHref}?scanId=${data.scanId}`}
+                        className="btn-primary inline-block"
+                      >
+                        {m.common.viewPricing}
+                      </Link>
+                    )}
+                    {stripeReady && (
+                      <a
+                        href={`/api/checkout?scanId=${encodeURIComponent(data.scanId)}&locale=${locale}&plan=monitoring_pro`}
+                        className="btn-glass inline-block"
+                      >
+                        {m.scan.subscribeMonitoring}
+                      </a>
+                    )}
+                  </div>
                 </div>
               )}
             </section>

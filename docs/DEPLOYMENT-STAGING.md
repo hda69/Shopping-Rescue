@@ -324,9 +324,26 @@ pnpm db:migrate && pnpm db:seed
 
 1. [Stripe Dashboard](https://dashboard.stripe.com/test/webhooks) → **Add endpoint**
 2. URL : `https://VOTRE-DOMAINE-WEB.up.railway.app/api/webhooks/stripe`
-3. Événements : `checkout.session.completed` (et autres selon votre config billing)
+3. Événements :
+   - `checkout.session.completed`
+   - `customer.subscription.updated`
+   - `customer.subscription.deleted`
 4. Copier le **Signing secret** → `STRIPE_WEBHOOK_SECRET` sur Railway (web)
 5. Redéployer **web**
+
+### Monitoring Pro (€49/mo)
+
+1. Stripe → Products → créer un prix **récurrent mensuel** €49
+2. Copier l’ID `price_...` → variable web `STRIPE_PRICE_MONITORING_PRO`
+3. Ajouter `CRON_SECRET` (string aléatoire) sur le service **web**
+4. Planifier un cron (Railway Cron / externe) chaque jour :
+
+```bash
+curl -X POST "https://VOTRE-DOMAINE-WEB.up.railway.app/api/cron/weekly-scans" \
+  -H "Authorization: Bearer VOTRE_CRON_SECRET"
+```
+
+Le cron file les jobs `WEEKLY_MONITORING_SCAN` ; le **worker** les traite automatiquement.
 
 ---
 

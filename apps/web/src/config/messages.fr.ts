@@ -158,21 +158,31 @@ export const MESSAGES_FR = {
   },
   pricing: {
     title: 'Tarifs',
-    subtitle: 'Commencez gratuitement, puis débloquez le diagnostic complet quand vous êtes prêt.',
+    subtitle: 'Commencez gratuitement, débloquez l’audit complet, ou surveillez votre boutique chaque semaine.',
     freeScan: 'Scan gratuit',
     fullAudit: 'Audit complet',
+    monitoringPro: 'Monitoring Pro',
     oneTime: 'Paiement unique',
+    perMonth: 'par mois',
     freeFeatures: ['15 pages crawlées', 'Score de risque 0–100', '2 constats détaillés'],
     fullFeatures: [
       'Tous les constats débloqués',
       'Preuves et recommandations complètes',
       'Checklist de correction priorisée',
     ],
+    monitoringFeatures: [
+      'Scans hebdomadaires automatiques',
+      'Alertes email sur nouveaux risques élevés',
+      'Rapports complets débloqués pendant l’abonnement',
+    ],
     startFreeScan: 'Lancer un scan gratuit',
     unlockScan: 'Débloquer ce scan — 79 €',
+    subscribeMonitoring: 'S’abonner — 49 €/mois',
     runFreeScanFirst: 'Lancer d’abord un scan gratuit',
     stripeNotConfigured:
       'Stripe n’est pas encore configuré. Ajoutez vos clés Stripe dans `.env` pour activer le paiement.',
+    monitoringStripeNotConfigured:
+      'Monitoring Pro nécessite STRIPE_PRICE_MONITORING_PRO dans votre environnement.',
   },
   scan: {
     notFound: 'Scan introuvable',
@@ -211,6 +221,7 @@ export const MESSAGES_FR = {
     lockedSub:
       'Passez à l’audit complet pour débloquer le rapport intégral avec preuves, checklist et PDF.',
     unlockFullReport: 'Débloquer le rapport complet — 79 €',
+    subscribeMonitoring: 'Lancer Monitoring Pro — 49 €/mois',
     stripeBanner:
       'Stripe n’est pas configuré localement. Ajoutez vos vraies clés test dans `.env` (pas les valeurs `sk_test_...` de `.env.example`).',
     devUnlock: 'Dev uniquement : débloquer sans paiement',

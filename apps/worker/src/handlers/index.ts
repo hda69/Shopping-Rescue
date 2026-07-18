@@ -1,6 +1,7 @@
 import type { JobType } from '@shopping-rescue/shared';
 import type { scanJobs } from '@shopping-rescue/database';
 import { handleFreeSiteScan } from './free-site-scan.js';
+import { handleWeeklyMonitoringScan } from './weekly-monitoring-scan.js';
 
 export type JobRecord = typeof scanJobs.$inferSelect;
 
@@ -8,6 +9,7 @@ export type JobHandler = (job: JobRecord) => Promise<void>;
 
 const handlers: Partial<Record<JobType, JobHandler>> = {
   FREE_SITE_SCAN: handleFreeSiteScan,
+  WEEKLY_MONITORING_SCAN: handleWeeklyMonitoringScan,
 };
 
 export function getHandler(jobType: string): JobHandler | undefined {

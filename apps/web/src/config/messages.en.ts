@@ -154,16 +154,26 @@ export const MESSAGES_EN = {
   },
   pricing: {
     title: 'Pricing',
-    subtitle: 'Start free, then unlock the complete diagnostic when you are ready.',
+    subtitle: 'Start free, unlock a full audit, or monitor your store every week.',
     freeScan: 'Free Scan',
     fullAudit: 'Full Audit',
+    monitoringPro: 'Monitoring Pro',
     oneTime: 'One-time payment',
+    perMonth: 'per month',
     freeFeatures: ['15 pages crawled', 'Risk score 0–100', '2 detailed findings'],
     fullFeatures: ['All findings unlocked', 'Full evidence and recommendations', 'Prioritized correction checklist'],
+    monitoringFeatures: [
+      'Automatic weekly scans',
+      'Email alerts on new high-risk findings',
+      'Full unlocked reports while subscribed',
+    ],
     startFreeScan: 'Start free scan',
     unlockScan: 'Unlock this scan — €79',
+    subscribeMonitoring: 'Subscribe — €49/mo',
     runFreeScanFirst: 'Run a free scan first',
     stripeNotConfigured: 'Stripe is not configured yet. Add your Stripe keys to `.env` to enable checkout.',
+    monitoringStripeNotConfigured:
+      'Monitoring Pro requires STRIPE_PRICE_MONITORING_PRO in your environment.',
   },
   scan: {
     notFound: 'Scan not found',
@@ -200,6 +210,7 @@ export const MESSAGES_EN = {
     lockedSub:
       'Upgrade to Full Audit to unlock the complete report with evidence, checklist, and PDF download.',
     unlockFullReport: 'Unlock full report — €79',
+    subscribeMonitoring: 'Start Monitoring Pro — €49/mo',
     stripeBanner:
       'Stripe is not configured yet. Add your real test keys to `.env` (not the placeholder `sk_test_...` values from `.env.example`).',
     devUnlock: 'Dev only: unlock report without payment',

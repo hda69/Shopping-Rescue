@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { loadEnv } from '@shopping-rescue/shared/load-env';
-import { isStripeConfigured } from '@shopping-rescue/billing';
+import { isMonitoringStripeConfigured, isStripeConfigured } from '@shopping-rescue/billing';
 import { PricingPageContent } from '@/components/pricing-page';
 import { getMessages } from '@/config/messages';
 
@@ -20,6 +20,11 @@ export default async function PricingPage({
   const params = await searchParams;
 
   return (
-    <PricingPageContent locale="en" scanId={params.scanId} stripeReady={isStripeConfigured()} />
+    <PricingPageContent
+      locale="en"
+      scanId={params.scanId}
+      stripeReady={isStripeConfigured()}
+      monitoringReady={isMonitoringStripeConfigured()}
+    />
   );
 }

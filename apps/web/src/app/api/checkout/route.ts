@@ -1,5 +1,5 @@
 import { loadEnv } from '@shopping-rescue/shared/load-env';
-import { startFullAuditCheckout } from '@/lib/checkout';
+import { startFullAuditCheckout, startMonitoringProCheckout } from '@/lib/checkout';
 import { NextResponse } from 'next/server';
 import { localizePath, parseLocaleParam } from '@/lib/locale';
 import { appUrl } from '@/lib/app-url';
@@ -23,6 +23,7 @@ async function handleCheckout(
   request: Request,
   scanId: string | null,
   locale: 'en' | 'fr',
+  plan: 'full_audit' | 'monitoring_pro',
 ) {
   if (!scanId) {
     return NextResponse.redirect(
@@ -32,7 +33,10 @@ async function handleCheckout(
   }
 
   try {
-    const checkoutUrl = await startFullAuditCheckout(scanId, locale);
+    const checkoutUrl =
+      plan === 'monitoring_pro'
+        ? await startMonitoringProCheckout(scanId, locale)
+        : await startFullAuditCheckout(scanId, locale);
     return NextResponse.redirect(checkoutUrl, 303);
   } catch (error) {
     if (error instanceof Error && error.message === 'ALREADY_UNLOCKED') {
@@ -50,16 +54,22 @@ async function handleCheckout(
   }
 }
 
+function parsePlan(value: string | null | undefined): 'full_audit' | 'monitoring_pro' {
+  return value === 'monitoring_pro' ? 'monitoring_pro' : 'full_audit';
+}
+
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const scanId = url.searchParams.get('scanId');
   const locale = parseLocaleParam(url.searchParams.get('locale'));
-  return handleCheckout(request, scanId, locale);
+  const plan = parsePlan(url.searchParams.get('plan'));
+  return handleCheckout(request, scanId, locale, plan);
 }
 
 export async function POST(request: Request) {
   const formData = await request.formData();
   const scanId = formData.get('scanId');
   const locale = parseLocaleParam(formData.get('locale')?.toString());
-  return handleCheckout(request, typeof scanId === 'string' ? scanId : null, locale);
+  const plan = parsePlan(formData.get('plan')?.toString());
+  return handleCheckout(request, typeof scanId === 'string' ? scanId : null, locale, plan);
 }
