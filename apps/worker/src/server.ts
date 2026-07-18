@@ -12,3 +12,5 @@ console.log(
 );
 
 await import('./index.js');
+
+export {};

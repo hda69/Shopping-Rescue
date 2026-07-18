@@ -144,12 +144,14 @@ export async function activateMonitoringSubscription(input: {
   stripeCustomerId: string;
   email: string;
   status: string;
+  plan?: 'monitoring_pro' | 'agency';
   currentPeriodStart?: Date | null;
   currentPeriodEnd?: Date | null;
   cancelAtPeriodEnd?: boolean;
 }) {
   const db = getDb();
   const now = new Date();
+  const plan = input.plan === 'agency' ? 'agency' : 'monitoring_pro';
 
   await upsertStripeCustomer({
     organizationId: input.organizationId,
@@ -167,6 +169,7 @@ export async function activateMonitoringSubscription(input: {
       .update(subscriptions)
       .set({
         status: input.status,
+        plan,
         currentPeriodStart: input.currentPeriodStart ?? existing.currentPeriodStart,
         currentPeriodEnd: input.currentPeriodEnd ?? existing.currentPeriodEnd,
         cancelAtPeriodEnd: input.cancelAtPeriodEnd ?? existing.cancelAtPeriodEnd,
@@ -178,7 +181,7 @@ export async function activateMonitoringSubscription(input: {
       organizationId: input.organizationId,
       stripeSubscriptionId: input.stripeSubscriptionId,
       stripeCustomerId: input.stripeCustomerId,
-      plan: 'monitoring_pro',
+      plan,
       status: input.status,
       currentPeriodStart: input.currentPeriodStart ?? null,
       currentPeriodEnd: input.currentPeriodEnd ?? null,
@@ -190,7 +193,7 @@ export async function activateMonitoringSubscription(input: {
   await db
     .update(organizations)
     .set({
-      plan: active ? 'monitoring_pro' : 'free',
+      plan: active ? plan : 'free',
       updatedAt: now,
     })
     .where(eq(organizations.id, input.organizationId));
@@ -199,7 +202,16 @@ export async function activateMonitoringSubscription(input: {
     await unlockScanReport(input.scanId);
   }
 
-  return { organizationId: input.organizationId, siteId: input.siteId, active };
+  if (input.email?.trim()) {
+    const { ensureUserMembershipForOrganization } = await import('./auth');
+    await ensureUserMembershipForOrganization({
+      email: input.email,
+      organizationId: input.organizationId,
+      role: 'owner',
+    });
+  }
+
+  return { organizationId: input.organizationId, siteId: input.siteId, active, plan };
 }
 
 export async function syncSubscriptionFromStripe(input: {
@@ -236,7 +248,7 @@ export async function syncSubscriptionFromStripe(input: {
   await db
     .update(organizations)
     .set({
-      plan: active ? 'monitoring_pro' : 'free',
+      plan: active ? (sub.plan === 'agency' ? 'agency' : 'monitoring_pro') : 'free',
       updatedAt: now,
     })
     .where(eq(organizations.id, sub.organizationId));
@@ -255,17 +267,17 @@ export interface MonitoringSiteDue {
 
 export async function listMonitoringSitesDueForScan(): Promise<MonitoringSiteDue[]> {
   const db = getDb();
-  const intervalDays = getPlanLimits('monitoring_pro').scanIntervalDays || 7;
 
   const activeSubs = await db
     .select({
       organizationId: subscriptions.organizationId,
       stripeCustomerId: subscriptions.stripeCustomerId,
+      plan: subscriptions.plan,
     })
     .from(subscriptions)
     .where(
       and(
-        eq(subscriptions.plan, 'monitoring_pro'),
+        inArray(subscriptions.plan, ['monitoring_pro', 'agency']),
         inArray(subscriptions.status, ['active', 'trialing']),
       ),
     );
@@ -273,6 +285,9 @@ export async function listMonitoringSitesDueForScan(): Promise<MonitoringSiteDue
   const due: MonitoringSiteDue[] = [];
 
   for (const sub of activeSubs) {
+    const intervalDays =
+      getPlanLimits(sub.plan === 'agency' ? 'agency' : 'monitoring_pro').scanIntervalDays || 7;
+
     const [customer] = await db
       .select()
       .from(stripeCustomers)

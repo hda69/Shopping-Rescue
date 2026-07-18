@@ -14,6 +14,7 @@
   "dependencies": {
     "@shopping-rescue/database": "workspace:*",
     "@shopping-rescue/email": "workspace:*",
+    "@shopping-rescue/merchant-api": "workspace:*",
     "@shopping-rescue/rules-engine": "workspace:*",
     "@shopping-rescue/scanner": "workspace:*",
     "@shopping-rescue/shared": "workspace:*",

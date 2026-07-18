@@ -1,10 +1,14 @@
 export type {
   MerchantAccount,
   MerchantProduct,
+  MerchantAccountIssue,
+  MerchantProductIssue,
   MerchantApiAdapter,
 } from './adapter.js';
 export {
   MerchantApiClient,
   createMerchantApiClient,
-  type MerchantApiClientConfig,
+  refreshGoogleAccessToken,
+  getGoogleOAuthAuthorizeUrl,
+  exchangeGoogleAuthCode,
 } from './client.js';

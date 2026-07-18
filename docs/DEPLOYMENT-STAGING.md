@@ -331,10 +331,10 @@ pnpm db:migrate && pnpm db:seed
 4. Copier le **Signing secret** → `STRIPE_WEBHOOK_SECRET` sur Railway (web)
 5. Redéployer **web**
 
-### Monitoring Pro (€49/mo)
+### Monitoring Pro (€49/mo) & Agency (€199/mo)
 
-1. Stripe → Products → créer un prix **récurrent mensuel** €49
-2. Copier l’ID `price_...` → variable web `STRIPE_PRICE_MONITORING_PRO`
+1. Stripe → Products → prix **récurrent mensuel** (€49 Monitoring / €199 Agency)
+2. Copier les IDs `price_...` → `STRIPE_PRICE_MONITORING_PRO` / `STRIPE_PRICE_AGENCY`
 3. Ajouter `CRON_SECRET` (string aléatoire) sur le service **web**
 4. Planifier un cron (Railway Cron / externe) chaque jour :
 
@@ -344,6 +344,12 @@ curl -X POST "https://VOTRE-DOMAINE-WEB.up.railway.app/api/cron/weekly-scans" \
 ```
 
 Le cron file les jobs `WEEKLY_MONITORING_SCAN` ; le **worker** les traite automatiquement.
+
+### Dashboard & auth
+
+1. Configurer Resend (`RESEND_API_KEY`, `RESEND_FROM_EMAIL`) pour les magic links
+2. Connexion : `/login` → e-mail → lien magique → `/dashboard`
+3. Merchant Center : voir [`docs/GOOGLE_OAUTH_SETUP.md`](./GOOGLE_OAUTH_SETUP.md)
 
 ---
 

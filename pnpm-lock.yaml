@@ -26,12 +26,21 @@ importers:
       '@fontsource/inter':
         specifier: ^5.2.5
         version: 5.2.8
+      '@shopping-rescue/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@shopping-rescue/billing':
         specifier: workspace:*
         version: link:../../packages/billing
       '@shopping-rescue/database':
         specifier: workspace:*
         version: link:../../packages/database
+      '@shopping-rescue/email':
+        specifier: workspace:*
+        version: link:../../packages/email
+      '@shopping-rescue/merchant-api':
+        specifier: workspace:*
+        version: link:../../packages/merchant-api
       '@shopping-rescue/reporting':
         specifier: workspace:*
         version: link:../../packages/reporting
@@ -93,6 +102,9 @@ importers:
       '@shopping-rescue/email':
         specifier: workspace:*
         version: link:../../packages/email
+      '@shopping-rescue/merchant-api':
+        specifier: workspace:*
+        version: link:../../packages/merchant-api
       '@shopping-rescue/rules-engine':
         specifier: workspace:*
         version: link:../../packages/rules-engine
@@ -118,9 +130,15 @@ importers:
 
   packages/auth:
     dependencies:
+      '@shopping-rescue/database':
+        specifier: workspace:*
+        version: link:../database
       '@shopping-rescue/shared':
         specifier: workspace:*
         version: link:../shared
+      next:
+        specifier: ^15.1.3
+        version: 15.5.20(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
     devDependencies:
       typescript:
         specifier: ^5.7.2

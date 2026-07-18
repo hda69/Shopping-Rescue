@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./constants": "./src/constants.ts"
   },
   "scripts": {
     "build": "tsc",
@@ -13,7 +14,9 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@shopping-rescue/shared": "workspace:*"
+    "@shopping-rescue/database": "workspace:*",
+    "@shopping-rescue/shared": "workspace:*",
+    "next": "^15.1.3"
   },
   "devDependencies": {
     "typescript": "^5.7.2",

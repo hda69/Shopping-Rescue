@@ -8,6 +8,7 @@ describe('MerchantApiClient', () => {
       listAccounts: async () => [{ id: '123', name: 'Test Store' }],
       listProducts: async () => [],
       getAccountIssues: async () => [],
+      getProductIssues: async () => [],
     };
 
     const client = createMerchantApiClient({ accessToken: 'token', adapter });

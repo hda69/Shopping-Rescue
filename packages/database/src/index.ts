@@ -4,5 +4,8 @@ export * from './jobs';
 export * from './scans';
 export * from './billing';
 export * from './subscriptions';
+export * from './auth';
+export * from './dashboard';
+export * from './merchant';
 export { formatDbError } from './db-errors';
 export { checkDbHealth } from './db-health';

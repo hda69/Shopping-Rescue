@@ -326,3 +326,94 @@ export const usageCounters = pgTable(
   },
   (table) => [unique().on(table.organizationId, table.periodStart)],
 );
+
+export const loginTokens = pgTable('login_tokens', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  email: text('email').notNull(),
+  tokenHash: text('token_hash').notNull().unique(),
+  locale: text('locale').notNull().default('en'),
+  expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+  usedAt: timestamp('used_at', { withTimezone: true }),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const sessions = pgTable('sessions', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: uuid('user_id')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  tokenHash: text('token_hash').notNull().unique(),
+  expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  lastSeenAt: timestamp('last_seen_at', { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const merchantConnections = pgTable('merchant_connections', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  organizationId: uuid('organization_id')
+    .notNull()
+    .references(() => organizations.id),
+  siteId: uuid('site_id').references(() => sites.id),
+  googleAccountEmail: text('google_account_email').notNull(),
+  refreshTokenEnc: text('refresh_token_enc').notNull(),
+  accessTokenEnc: text('access_token_enc'),
+  tokenExpiresAt: timestamp('token_expires_at', { withTimezone: true }),
+  scopes: text('scopes')
+    .array()
+    .notNull()
+    .default(['https://www.googleapis.com/auth/content']),
+  status: text('status').notNull().default('active'),
+  lastSyncAt: timestamp('last_sync_at', { withTimezone: true }),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  deletedAt: timestamp('deleted_at', { withTimezone: true }),
+});
+
+export const merchantAccounts = pgTable(
+  'merchant_accounts',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    merchantConnectionId: uuid('merchant_connection_id')
+      .notNull()
+      .references(() => merchantConnections.id),
+    googleAccountId: text('google_account_id').notNull(),
+    accountName: text('account_name'),
+    accountType: text('account_type'),
+    isSelected: boolean('is_selected').notNull().default(false),
+    rawData: jsonb('raw_data'),
+    lastSyncedAt: timestamp('last_synced_at', { withTimezone: true }),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [unique().on(table.merchantConnectionId, table.googleAccountId)],
+);
+
+export const merchantAccountIssues = pgTable('merchant_account_issues', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  merchantAccountId: uuid('merchant_account_id')
+    .notNull()
+    .references(() => merchantAccounts.id),
+  scanId: uuid('scan_id').references(() => scans.id),
+  issueId: text('issue_id').notNull(),
+  severity: text('severity'),
+  title: text('title'),
+  detail: text('detail'),
+  documentationUrl: text('documentation_url'),
+  rawData: jsonb('raw_data'),
+  syncedAt: timestamp('synced_at', { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const merchantProductIssues = pgTable('merchant_product_issues', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  merchantAccountId: uuid('merchant_account_id')
+    .notNull()
+    .references(() => merchantAccounts.id),
+  scanId: uuid('scan_id').references(() => scans.id),
+  productId: text('product_id').notNull(),
+  productTitle: text('product_title'),
+  issueCode: text('issue_code'),
+  severity: text('severity'),
+  detail: text('detail'),
+  rawData: jsonb('raw_data'),
+  syncedAt: timestamp('synced_at', { withTimezone: true }).notNull().defaultNow(),
+});

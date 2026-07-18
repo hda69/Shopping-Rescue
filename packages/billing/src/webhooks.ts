@@ -115,24 +115,28 @@ async function handleMonitoringCheckout(session: Stripe.Checkout.Session) {
     stripeCustomerId: customerId,
     email,
     status: subscription.status,
+    plan: session.metadata?.plan === 'agency' ? 'agency' : 'monitoring_pro',
     currentPeriodStart: period.start,
     currentPeriodEnd: period.end,
     cancelAtPeriodEnd: subscription.cancel_at_period_end,
   });
 
-  logger.info('Monitoring Pro subscription activated', {
+  logger.info('Monitoring subscription activated', {
     organizationId,
     siteId,
     scanId,
     subscriptionId: subscription.id,
     status: subscription.status,
+    plan: session.metadata?.plan ?? 'monitoring_pro',
   });
 }
 
 async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) {
-  const plan = session.metadata?.plan ?? (session.mode === 'subscription' ? 'monitoring_pro' : 'full_audit');
+  const plan =
+    session.metadata?.plan ??
+    (session.mode === 'subscription' ? 'monitoring_pro' : 'full_audit');
 
-  if (plan === 'monitoring_pro' || session.mode === 'subscription') {
+  if (plan === 'monitoring_pro' || plan === 'agency' || session.mode === 'subscription') {
     await handleMonitoringCheckout(session);
     return;
   }

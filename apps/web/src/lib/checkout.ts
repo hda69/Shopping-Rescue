@@ -2,7 +2,9 @@ import { loadEnv } from '@shopping-rescue/shared/load-env';
 import {
   createFullAuditCheckoutSession,
   createMonitoringProCheckoutSession,
+  createAgencyCheckoutSession,
   isMonitoringStripeConfigured,
+  isAgencyStripeConfigured,
   isStripeConfigured,
   retrieveCheckoutSession,
   getStripeClient,
@@ -96,6 +98,28 @@ export async function startMonitoringProCheckout(
   return url;
 }
 
+export async function startAgencyCheckout(
+  scanId: string,
+  locale: 'en' | 'fr' = 'en',
+): Promise<string> {
+  if (!isAgencyStripeConfigured()) {
+    throw new Error(
+      'Agency Stripe price is not configured. Add STRIPE_PRICE_AGENCY to your .env file.',
+    );
+  }
+
+  const prepared = await prepareMonitoringCheckoutFromScan(scanId);
+  const { url } = await createAgencyCheckoutSession({
+    scanId,
+    organizationId: prepared.organizationId,
+    siteId: prepared.siteId,
+    customerEmail: prepared.email,
+    locale: locale || prepared.locale,
+  });
+
+  return url;
+}
+
 function toDate(unixSeconds: number | null | undefined): Date | null {
   if (!unixSeconds) return null;
   return new Date(unixSeconds * 1000);
@@ -130,7 +154,7 @@ export async function verifyCheckoutSessionAndUnlock(
 
   const plan = session.metadata?.plan;
 
-  if (plan === 'monitoring_pro' || session.mode === 'subscription') {
+  if (plan === 'monitoring_pro' || plan === 'agency' || session.mode === 'subscription') {
     return verifyMonitoringCheckoutSession(session, scanId);
   }
 
@@ -184,6 +208,7 @@ async function verifyMonitoringCheckoutSession(
     stripeCustomerId: customerId,
     email,
     status: subscription.status,
+    plan: session.metadata?.plan === 'agency' ? 'agency' : 'monitoring_pro',
     currentPeriodStart: period.start,
     currentPeriodEnd: period.end,
     cancelAtPeriodEnd: subscription.cancel_at_period_end,

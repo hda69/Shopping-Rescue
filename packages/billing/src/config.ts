@@ -34,3 +34,10 @@ export function isMonitoringStripeConfigured(): boolean {
   if (!priceId || isPlaceholderEnvValue(priceId)) return false;
   return priceId.startsWith('price_');
 }
+
+export function isAgencyStripeConfigured(): boolean {
+  if (!isStripeConfigured()) return false;
+  const priceId = process.env.STRIPE_PRICE_AGENCY;
+  if (!priceId || isPlaceholderEnvValue(priceId)) return false;
+  return priceId.startsWith('price_');
+}

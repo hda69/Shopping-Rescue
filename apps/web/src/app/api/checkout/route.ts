@@ -1,5 +1,9 @@
 import { loadEnv } from '@shopping-rescue/shared/load-env';
-import { startFullAuditCheckout, startMonitoringProCheckout } from '@/lib/checkout';
+import {
+  startFullAuditCheckout,
+  startMonitoringProCheckout,
+  startAgencyCheckout,
+} from '@/lib/checkout';
 import { NextResponse } from 'next/server';
 import { localizePath, parseLocaleParam } from '@/lib/locale';
 import { appUrl } from '@/lib/app-url';
@@ -19,11 +23,13 @@ function redirectToScan(
   return NextResponse.redirect(url, 303);
 }
 
+type CheckoutPlan = 'full_audit' | 'monitoring_pro' | 'agency';
+
 async function handleCheckout(
   request: Request,
   scanId: string | null,
   locale: 'en' | 'fr',
-  plan: 'full_audit' | 'monitoring_pro',
+  plan: CheckoutPlan,
 ) {
   if (!scanId) {
     return NextResponse.redirect(
@@ -34,9 +40,11 @@ async function handleCheckout(
 
   try {
     const checkoutUrl =
-      plan === 'monitoring_pro'
-        ? await startMonitoringProCheckout(scanId, locale)
-        : await startFullAuditCheckout(scanId, locale);
+      plan === 'agency'
+        ? await startAgencyCheckout(scanId, locale)
+        : plan === 'monitoring_pro'
+          ? await startMonitoringProCheckout(scanId, locale)
+          : await startFullAuditCheckout(scanId, locale);
     return NextResponse.redirect(checkoutUrl, 303);
   } catch (error) {
     if (error instanceof Error && error.message === 'ALREADY_UNLOCKED') {
@@ -54,8 +62,10 @@ async function handleCheckout(
   }
 }
 
-function parsePlan(value: string | null | undefined): 'full_audit' | 'monitoring_pro' {
-  return value === 'monitoring_pro' ? 'monitoring_pro' : 'full_audit';
+function parsePlan(value: string | null | undefined): CheckoutPlan {
+  if (value === 'monitoring_pro') return 'monitoring_pro';
+  if (value === 'agency') return 'agency';
+  return 'full_audit';
 }
 
 export async function GET(request: Request) {

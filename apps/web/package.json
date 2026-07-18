@@ -12,8 +12,11 @@
   },
   "dependencies": {
     "@fontsource/inter": "^5.2.5",
+    "@shopping-rescue/auth": "workspace:*",
     "@shopping-rescue/billing": "workspace:*",
     "@shopping-rescue/database": "workspace:*",
+    "@shopping-rescue/email": "workspace:*",
+    "@shopping-rescue/merchant-api": "workspace:*",
     "@shopping-rescue/reporting": "workspace:*",
     "@shopping-rescue/shared": "workspace:*",
     "next": "^15.1.3",

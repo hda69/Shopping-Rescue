@@ -17,3 +17,9 @@ export {
   sendRiskAlertEmail,
   type SendRiskAlertEmailInput,
 } from './send-risk-alert.js';
+export { buildMagicLinkEmail } from './templates/magic-link.js';
+export {
+  sendMagicLinkEmail,
+  type SendMagicLinkEmailInput,
+  type SendMagicLinkEmailResult,
+} from './send-magic-link.js';

@@ -50,6 +50,16 @@ export function SiteHeader({
             variant={variant}
           />
           <a
+            href={localizePath('/login', locale)}
+            className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+              isDark
+                ? 'text-white/70 hover:bg-white/10 hover:text-white'
+                : 'text-[#6e6e73] hover:bg-black/5 hover:text-[#111]'
+            }`}
+          >
+            {m.common.login}
+          </a>
+          <a
             href={howItWorksAnchor}
             className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
               isDark

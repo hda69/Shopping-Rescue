@@ -10,6 +10,7 @@ interface PricingPageContentProps {
   scanId?: string;
   stripeReady: boolean;
   monitoringReady: boolean;
+  agencyReady: boolean;
 }
 
 export function PricingPageContent({
@@ -17,6 +18,7 @@ export function PricingPageContent({
   scanId,
   stripeReady,
   monitoringReady,
+  agencyReady,
 }: PricingPageContentProps) {
   const m = getMessages(locale);
   const freeScanHref = localizePath('/free-scan', locale);
@@ -25,6 +27,9 @@ export function PricingPageContent({
     : undefined;
   const monitoringHref = scanId
     ? `/api/checkout?scanId=${encodeURIComponent(scanId)}&locale=${locale}&plan=monitoring_pro`
+    : undefined;
+  const agencyHref = scanId
+    ? `/api/checkout?scanId=${encodeURIComponent(scanId)}&locale=${locale}&plan=agency`
     : undefined;
 
   return (
@@ -37,7 +42,7 @@ export function PricingPageContent({
           <p className="mt-4 text-[#6e6e73]">{m.pricing.subtitle}</p>
         </div>
 
-        <div className="mx-auto mt-12 grid max-w-5xl gap-6 lg:grid-cols-3">
+        <div className="mx-auto mt-12 grid max-w-6xl gap-6 lg:grid-cols-4">
           <div className="glass-card p-8">
             <h2 className="text-xl font-bold text-[#111]">{m.pricing.freeScan}</h2>
             <p className="mt-2 text-3xl font-extrabold tracking-tight text-[#111]">€0</p>
@@ -98,6 +103,31 @@ export function PricingPageContent({
 
             {stripeReady && !monitoringReady && (
               <p className="mt-4 text-xs text-amber-700">{m.pricing.monitoringStripeNotConfigured}</p>
+            )}
+          </div>
+
+          <div className="glass-card p-8">
+            <h2 className="text-xl font-bold text-[#111]">{m.pricing.agency}</h2>
+            <p className="mt-2 text-3xl font-extrabold tracking-tight text-[#111]">€199</p>
+            <p className="text-sm text-[#6e6e73]">{m.pricing.perMonth}</p>
+            <ul className="mt-6 space-y-2 text-left text-sm text-[#6e6e73]">
+              {m.pricing.agencyFeatures.map((feature) => (
+                <li key={feature}>{feature}</li>
+              ))}
+            </ul>
+
+            {scanId && agencyReady && agencyHref ? (
+              <a href={agencyHref} className="btn-glass-accent mt-8 inline-block w-full text-center">
+                {m.pricing.subscribeAgency}
+              </a>
+            ) : (
+              <Link href={freeScanHref} className="btn-glass mt-8 inline-block w-full text-center">
+                {m.pricing.runFreeScanFirst}
+              </Link>
+            )}
+
+            {stripeReady && !agencyReady && (
+              <p className="mt-4 text-xs text-amber-700">{m.pricing.agencyStripeNotConfigured}</p>
             )}
           </div>
         </div>

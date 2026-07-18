@@ -106,6 +106,60 @@ export async function createMonitoringProCheckoutSession(
   };
 }
 
+export interface AgencyCheckoutParams {
+  scanId: string;
+  organizationId: string;
+  siteId: string;
+  customerEmail: string;
+  locale?: AppLocale;
+}
+
+export async function createAgencyCheckoutSession(
+  params: AgencyCheckoutParams,
+): Promise<{ url: string; sessionId: string }> {
+  const stripe = getStripeClient();
+  const appUrl = getAppUrl();
+  const locale = params.locale ?? 'en';
+
+  const session = await stripe.checkout.sessions.create({
+    mode: 'subscription',
+    customer_email: params.customerEmail,
+    line_items: [
+      {
+        price: getStripePriceId('agency'),
+        quantity: 1,
+      },
+    ],
+    metadata: {
+      scanId: params.scanId,
+      organizationId: params.organizationId,
+      siteId: params.siteId,
+      plan: 'agency',
+      customerEmail: params.customerEmail,
+    },
+    subscription_data: {
+      metadata: {
+        scanId: params.scanId,
+        organizationId: params.organizationId,
+        siteId: params.siteId,
+        plan: 'agency',
+        customerEmail: params.customerEmail,
+      },
+    },
+    success_url: `${appUrl}${localizePath('/checkout/success', locale)}?scanId=${params.scanId}&plan=agency&session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${appUrl}${localizePath(`/scan/${params.scanId}`, locale)}`,
+  });
+
+  if (!session.url) {
+    throw new Error('Stripe did not return a checkout URL');
+  }
+
+  return {
+    url: session.url,
+    sessionId: session.id,
+  };
+}
+
 export async function retrieveCheckoutSession(
   sessionId: string,
 ): Promise<Stripe.Checkout.Session> {
