@@ -1,8 +1,8 @@
 import { createLogger } from '@shopping-rescue/shared';
 import { localizePath, parseLocaleParam, type AppLocale } from '@shopping-rescue/shared/i18n';
-import { createEmailClient } from './client.js';
-import { getEmailConfigFromEnv } from './config.js';
-import { buildScanCompletedEmail } from './templates/scan-completed.js';
+import { createEmailClient } from './client';
+import { getEmailConfigFromEnv } from './config';
+import { buildScanCompletedEmail } from './templates/scan-completed';
 const logger = createLogger({ package: 'email' });
 
 export interface SendScanCompletedEmailInput {

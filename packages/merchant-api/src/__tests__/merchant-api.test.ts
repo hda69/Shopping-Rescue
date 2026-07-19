@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { createMerchantApiClient } from '../client.js';
-import type { MerchantApiAdapter } from '../adapter.js';
+import { createMerchantApiClient } from '../client';
+import type { MerchantApiAdapter } from '../adapter';
 
 describe('MerchantApiClient', () => {
   it('delegates to adapter when provided', async () => {

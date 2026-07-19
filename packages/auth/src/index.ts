@@ -1,7 +1,7 @@
 export {
   SESSION_COOKIE_NAME,
   OAUTH_STATE_COOKIE_NAME,
-} from './constants.js';
+} from './constants';
 
 export {
   type AuthSession,
@@ -14,11 +14,11 @@ export {
   createSession,
   getSessionByToken,
   deleteSessionByToken,
-} from './session.js';
+} from './session';
 
 export {
   getSession,
   getSessionFromCookies,
   establishSession,
   clearSessionCookie,
-} from './cookies.js';
+} from './cookies';

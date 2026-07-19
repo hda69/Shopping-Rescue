@@ -4,22 +4,22 @@ export {
   type EmailClientConfig,
   type SendEmailParams,
   type SendEmailResult,
-} from './client.js';
-export { getEmailConfigFromEnv, isResendConfigured } from './config.js';
-export { buildScanCompletedEmail } from './templates/scan-completed.js';
+} from './client';
+export { getEmailConfigFromEnv, isResendConfigured } from './config';
+export { buildScanCompletedEmail } from './templates/scan-completed';
 export {
   sendScanCompletedEmail,
   type SendScanCompletedEmailInput,
   type SendScanCompletedEmailResult,
-} from './send-scan-completed.js';
-export { buildRiskAlertEmail } from './templates/risk-alert.js';
+} from './send-scan-completed';
+export { buildRiskAlertEmail } from './templates/risk-alert';
 export {
   sendRiskAlertEmail,
   type SendRiskAlertEmailInput,
-} from './send-risk-alert.js';
-export { buildMagicLinkEmail } from './templates/magic-link.js';
+} from './send-risk-alert';
+export { buildMagicLinkEmail } from './templates/magic-link';
 export {
   sendMagicLinkEmail,
   type SendMagicLinkEmailInput,
   type SendMagicLinkEmailResult,
-} from './send-magic-link.js';
+} from './send-magic-link';

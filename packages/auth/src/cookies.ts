@@ -5,7 +5,7 @@ import {
   getSessionByToken,
   deleteSessionByToken,
   createSession,
-} from './session.js';
+} from './session';
 
 export async function getSessionFromCookies(): Promise<AuthSession | null> {
   const jar = await cookies();

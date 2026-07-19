@@ -5,7 +5,7 @@ import type {
   MerchantProduct,
   MerchantAccountIssue,
   MerchantProductIssue,
-} from './adapter.js';
+} from './adapter';
 
 export interface MerchantApiClientConfig {
   accessToken: string;

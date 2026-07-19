@@ -1,7 +1,7 @@
 export {
   SESSION_COOKIE_NAME,
   OAUTH_STATE_COOKIE_NAME,
-} from './constants.js';
+} from './constants';
 
 export interface AuthSession {
   sessionId: string;

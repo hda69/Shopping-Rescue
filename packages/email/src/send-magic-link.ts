@@ -1,8 +1,8 @@
 import { createLogger } from '@shopping-rescue/shared';
 import { parseLocaleParam, type AppLocale } from '@shopping-rescue/shared/i18n';
-import { createEmailClient } from './client.js';
-import { getEmailConfigFromEnv } from './config.js';
-import { buildMagicLinkEmail } from './templates/magic-link.js';
+import { createEmailClient } from './client';
+import { getEmailConfigFromEnv } from './config';
+import { buildMagicLinkEmail } from './templates/magic-link';
 
 const logger = createLogger({ package: 'email' });
 

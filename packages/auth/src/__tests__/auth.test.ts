@@ -1,4 +1,4 @@
-import { SESSION_COOKIE_NAME, buildSessionCookieOptions } from '../session.js';
+import { SESSION_COOKIE_NAME, buildSessionCookieOptions } from '../session';
 import { describe, it, expect } from 'vitest';
 
 describe('auth package', () => {
