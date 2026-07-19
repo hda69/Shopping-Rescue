@@ -8,7 +8,12 @@ export {
   buildSessionCookieOptions,
   createLoginToken,
   consumeLoginToken,
+  createPasswordResetToken,
+  consumePasswordResetToken,
   upsertUserByEmail,
+  getUserByEmail,
+  setUserPasswordHash,
+  createUserWithPassword,
   linkUserToOrganizationsByEmail,
   ensureUserMembershipForOrganization,
   createSession,
@@ -22,3 +27,10 @@ export {
   establishSession,
   clearSessionCookie,
 } from './cookies';
+
+export {
+  hashPassword,
+  verifyPassword,
+  isValidPassword,
+  MIN_PASSWORD_LENGTH,
+} from './password';

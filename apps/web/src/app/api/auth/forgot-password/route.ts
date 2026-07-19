@@ -1,6 +1,6 @@
 import { loadEnv } from '@shopping-rescue/shared/load-env';
-import { createLoginToken } from '@shopping-rescue/auth';
-import { sendMagicLinkEmail } from '@shopping-rescue/email';
+import { createPasswordResetToken, getUserByEmail } from '@shopping-rescue/auth';
+import { sendPasswordResetEmail } from '@shopping-rescue/email';
 import { localizePath, parseLocaleParam } from '@/lib/locale';
 import { getAppBaseUrl } from '@/lib/app-url';
 import { NextResponse } from 'next/server';
@@ -20,18 +20,25 @@ export async function POST(request: Request) {
   }
 
   const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
+  const locale = parseLocaleParam(body.locale);
+
   if (!email || !isValidEmail(email)) {
     return NextResponse.json({ error: 'invalid_email' }, { status: 400 });
   }
 
-  const locale = parseLocaleParam(body.locale);
-  const { rawToken } = await createLoginToken({ email, locale });
-  const appUrl = getAppBaseUrl(request).replace(/\/$/, '');
-  const loginUrl = `${appUrl}/api/auth/verify?token=${encodeURIComponent(rawToken)}&locale=${locale}`;
+  // Always return ok to avoid email enumeration
+  const user = await getUserByEmail(email);
+  if (!user) {
+    return NextResponse.json({ ok: true });
+  }
 
-  const result = await sendMagicLinkEmail({
+  const { rawToken } = await createPasswordResetToken({ email, locale });
+  const appUrl = getAppBaseUrl(request).replace(/\/$/, '');
+  const resetUrl = `${appUrl}${localizePath('/reset-password', locale)}?token=${encodeURIComponent(rawToken)}`;
+
+  const result = await sendPasswordResetEmail({
     to: email,
-    loginUrl,
+    resetUrl,
     locale,
   });
 

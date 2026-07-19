@@ -23,3 +23,5 @@ export {
   type SendMagicLinkEmailInput,
   type SendMagicLinkEmailResult,
 } from './send-magic-link';
+export { buildPasswordResetEmail } from './templates/password-reset';
+export { sendPasswordResetEmail, type SendPasswordResetEmailInput } from './send-password-reset';

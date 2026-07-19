@@ -23,7 +23,15 @@ export function generateAuthToken(): string {
   return randomBytes(32).toString('base64url');
 }
 
+/** @deprecated Use createPasswordResetToken — kept for migration compatibility */
 export async function createLoginToken(input: {
+  email: string;
+  locale?: 'en' | 'fr';
+}): Promise<{ rawToken: string; expiresAt: Date }> {
+  return createPasswordResetToken(input);
+}
+
+export async function createPasswordResetToken(input: {
   email: string;
   locale?: 'en' | 'fr';
 }): Promise<{ rawToken: string; expiresAt: Date }> {
@@ -36,6 +44,7 @@ export async function createLoginToken(input: {
     email,
     tokenHash: hashAuthToken(rawToken),
     locale: input.locale ?? 'en',
+    purpose: 'password_reset',
     expiresAt,
   });
 
@@ -43,6 +52,13 @@ export async function createLoginToken(input: {
 }
 
 export async function consumeLoginToken(rawToken: string): Promise<{
+  email: string;
+  locale: 'en' | 'fr';
+} | null> {
+  return consumePasswordResetToken(rawToken);
+}
+
+export async function consumePasswordResetToken(rawToken: string): Promise<{
   email: string;
   locale: 'en' | 'fr';
 } | null> {
@@ -73,6 +89,48 @@ export async function consumeLoginToken(rawToken: string): Promise<{
     email: row.email,
     locale: row.locale === 'fr' ? 'fr' : 'en',
   };
+}
+
+export async function getUserByEmail(email: string) {
+  const db = getDb();
+  const [row] = await db
+    .select()
+    .from(users)
+    .where(eq(users.email, email.trim().toLowerCase()))
+    .limit(1);
+  return row ?? null;
+}
+
+export async function setUserPasswordHash(userId: string, passwordHash: string) {
+  const db = getDb();
+  const [updated] = await db
+    .update(users)
+    .set({ passwordHash, updatedAt: new Date() })
+    .where(eq(users.id, userId))
+    .returning();
+  return updated ?? null;
+}
+
+export async function createUserWithPassword(input: {
+  email: string;
+  passwordHash: string;
+  locale?: 'en' | 'fr';
+}): Promise<typeof users.$inferSelect> {
+  const db = getDb();
+  const email = input.email.trim().toLowerCase();
+
+  const [created] = await db
+    .insert(users)
+    .values({
+      id: randomUUID(),
+      email,
+      passwordHash: input.passwordHash,
+      locale: input.locale ?? 'en',
+      role: 'user',
+    })
+    .returning();
+
+  return created!;
 }
 
 export async function upsertUserByEmail(input: {

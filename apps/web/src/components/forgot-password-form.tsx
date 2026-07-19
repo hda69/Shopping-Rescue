@@ -1,22 +1,25 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import type { AppLocale } from '@/lib/locale';
+import { localizePath } from '@/lib/locale';
 
-interface LoginFormProps {
+interface ForgotPasswordFormProps {
   locale: AppLocale;
   labels: {
     email: string;
     submit: string;
     submitting: string;
     success: string;
+    backToLogin: string;
     errorGeneric: string;
     errorEmail: string;
     errorNotConfigured: string;
   };
 }
 
-export function LoginForm({ locale, labels }: LoginFormProps) {
+export function ForgotPasswordForm({ locale, labels }: ForgotPasswordFormProps) {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [error, setError] = useState<string | null>(null);
@@ -27,7 +30,7 @@ export function LoginForm({ locale, labels }: LoginFormProps) {
     setError(null);
 
     try {
-      const response = await fetch('/api/auth/magic-link', {
+      const response = await fetch('/api/auth/forgot-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, locale }),
@@ -71,6 +74,11 @@ export function LoginForm({ locale, labels }: LoginFormProps) {
       </button>
       {status === 'success' && <p className="text-sm text-emerald-700">{labels.success}</p>}
       {error && <p className="text-sm text-red-700">{error}</p>}
+      <p className="text-center text-sm">
+        <Link href={localizePath('/login', locale)} className="text-[#0a84ff]">
+          {labels.backToLogin}
+        </Link>
+      </p>
     </form>
   );
 }

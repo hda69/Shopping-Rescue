@@ -24,7 +24,12 @@ export function buildSessionCookieOptions(expiresAt: Date) {
 export {
   createLoginToken,
   consumeLoginToken,
+  createPasswordResetToken,
+  consumePasswordResetToken,
   upsertUserByEmail,
+  getUserByEmail,
+  setUserPasswordHash,
+  createUserWithPassword,
   linkUserToOrganizationsByEmail,
   ensureUserMembershipForOrganization,
   createSession,
