@@ -33,7 +33,7 @@ export async function DashboardShell({
     <div className="min-h-screen section-muted">
       <header className="border-b border-white/60 bg-white/55 backdrop-blur-xl">
         <div className="section-container flex h-16 items-center justify-between gap-4">
-          <SiteLogo href={localizePath('/dashboard', locale)} size="sm" />
+          <SiteLogo href={localizePath('/', locale)} size="sm" />
           <nav className="hidden items-center gap-2 sm:flex">
             {links.map((link) => (
               <Link
