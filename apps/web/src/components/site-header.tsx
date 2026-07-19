@@ -4,6 +4,7 @@ import type { AppLocale } from '@/lib/locale';
 import { localizePath } from '@/lib/locale';
 import { FreeScanNavLink } from '@/components/free-scan-nav-link';
 import { LanguageSwitcher } from '@/components/language-switcher';
+import { MobileNav } from '@/components/mobile-nav';
 import { SiteLogo } from '@/components/site-logo';
 
 interface SiteHeaderProps {
@@ -28,6 +29,14 @@ export async function SiteHeader({
     : localizePath('/login', locale);
   const accountLabel = session ? m.common.dashboard : m.common.login;
 
+  const linkClass = isDark
+    ? 'rounded-xl px-3 py-2 text-sm font-medium text-white/70 transition-colors hover:bg-white/10 hover:text-white'
+    : 'rounded-xl px-3 py-2 text-sm font-medium text-[#6e6e73] transition-colors hover:bg-black/5 hover:text-[#111]';
+  const mobileLinkClass = `${linkClass} block w-full text-left`;
+  const ctaClass = isDark
+    ? 'btn-glass-primary px-4 py-2 text-sm'
+    : 'btn-glass-accent px-4 py-2 text-sm';
+
   return (
     <header
       className={`${sticky ? 'sticky top-0 z-50' : 'relative z-10'} border-b ${
@@ -47,6 +56,7 @@ export async function SiteHeader({
               : 'hidden sm:inline text-base'
           }
         />
+
         <nav className="hidden items-center gap-2 sm:flex">
           <LanguageSwitcher
             locale={locale}
@@ -55,25 +65,14 @@ export async function SiteHeader({
             frenchLabel={m.common.french}
             variant={variant}
           />
-          <a
-            href={accountHref}
-            className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
-              isDark
-                ? 'text-white/70 hover:bg-white/10 hover:text-white'
-                : 'text-[#6e6e73] hover:bg-black/5 hover:text-[#111]'
-            }`}
-          >
+          <a href={accountHref} className={linkClass}>
             {accountLabel}
           </a>
           {session && (
             <form action={`/api/auth/logout?locale=${locale}`} method="POST">
               <button
                 type="submit"
-                className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
-                  isDark
-                    ? 'text-white/70 hover:bg-white/10 hover:text-white'
-                    : 'text-[#6e6e73] hover:bg-black/5 hover:text-[#111]'
-                }`}
+                className={`inline-flex items-center gap-1.5 ${linkClass}`}
                 aria-label={m.common.logout}
                 title={m.common.logout}
               >
@@ -96,34 +95,53 @@ export async function SiteHeader({
               </button>
             </form>
           )}
-          <a
-            href={howItWorksAnchor}
-            className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
-              isDark
-                ? 'text-white/70 hover:bg-white/10 hover:text-white'
-                : 'text-[#6e6e73] hover:bg-black/5 hover:text-[#111]'
-            }`}
-          >
+          <a href={howItWorksAnchor} className={linkClass}>
             {m.common.howItWorks}
           </a>
-          <a
-            href={pricingAnchor}
-            className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
-              isDark
-                ? 'text-white/70 hover:bg-white/10 hover:text-white'
-                : 'text-[#6e6e73] hover:bg-black/5 hover:text-[#111]'
-            }`}
-          >
+          <a href={pricingAnchor} className={linkClass}>
             {m.common.pricing}
           </a>
-          <FreeScanNavLink
-            locale={locale}
-            label={m.common.startFreeScan}
-            className={
-              isDark ? 'btn-glass-primary px-4 py-2 text-sm' : 'btn-glass-accent px-4 py-2 text-sm'
-            }
-          />
+          <FreeScanNavLink locale={locale} label={m.common.startFreeScan} className={ctaClass} />
         </nav>
+
+        <MobileNav
+          variant={variant}
+          openLabel={m.common.openMenu}
+          closeLabel={m.common.closeMenu}
+        >
+          <div className="mb-2">
+            <LanguageSwitcher
+              locale={locale}
+              label={m.common.languageLabel}
+              englishLabel={m.common.english}
+              frenchLabel={m.common.french}
+              variant={variant}
+            />
+          </div>
+          <a href={accountHref} className={mobileLinkClass}>
+            {accountLabel}
+          </a>
+          {session && (
+            <form action={`/api/auth/logout?locale=${locale}`} method="POST">
+              <button type="submit" className={mobileLinkClass}>
+                {m.common.logout}
+              </button>
+            </form>
+          )}
+          <a href={howItWorksAnchor} className={mobileLinkClass}>
+            {m.common.howItWorks}
+          </a>
+          <a href={pricingAnchor} className={mobileLinkClass}>
+            {m.common.pricing}
+          </a>
+          <div className="pt-2">
+            <FreeScanNavLink
+              locale={locale}
+              label={m.common.startFreeScan}
+              className={`${ctaClass} inline-flex w-full justify-center`}
+            />
+          </div>
+        </MobileNav>
       </div>
     </header>
   );

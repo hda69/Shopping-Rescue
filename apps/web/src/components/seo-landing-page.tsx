@@ -80,11 +80,11 @@ export function SeoLandingPage({ page, locale = 'en' }: SeoLandingPageProps) {
             <p className="mx-auto mt-5 max-w-2xl text-base text-white/70 sm:text-lg">
               {page.subheadline}
             </p>
-            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Link href={freeScanHref} className="btn-glass-primary min-w-[200px]">
+            <div className="mt-8 flex w-full flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4">
+              <Link href={freeScanHref} className="btn-glass-primary w-full text-center sm:w-auto sm:min-w-[200px]">
                 {ui.startFreeScan}
               </Link>
-              <Link href={pricingHref} className="btn-glass-ghost min-w-[200px]">
+              <Link href={pricingHref} className="btn-glass-ghost w-full text-center sm:w-auto sm:min-w-[200px]">
                 {ui.viewPricing}
               </Link>
             </div>
@@ -203,11 +203,11 @@ export function SeoLandingPage({ page, locale = 'en' }: SeoLandingPageProps) {
           <div className="section-container text-center">
             <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{ui.ctaTitle}</h2>
             <p className="mx-auto mt-4 max-w-xl text-white/65">{ui.ctaSub}</p>
-            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Link href={freeScanHref} className="btn-glass-primary min-w-[200px]">
+            <div className="mt-8 flex w-full flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4">
+              <Link href={freeScanHref} className="btn-glass-primary w-full text-center sm:w-auto sm:min-w-[200px]">
                 {ui.startFreeScan}
               </Link>
-              <Link href={pricingHref} className="btn-glass-ghost min-w-[200px]">
+              <Link href={pricingHref} className="btn-glass-ghost w-full text-center sm:w-auto sm:min-w-[200px]">
                 {ui.fullAuditCta}
               </Link>
             </div>

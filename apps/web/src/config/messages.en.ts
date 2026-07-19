@@ -17,6 +17,8 @@ export const MESSAGES_EN = {
     dashboard: 'Dashboard',
     login: 'Sign in',
     logout: 'Log out',
+    openMenu: 'Open menu',
+    closeMenu: 'Close menu',
     terms: 'Terms',
     privacy: 'Privacy',
     disclaimer: 'Disclaimer',

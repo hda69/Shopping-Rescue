@@ -37,17 +37,20 @@ export function HomePageContent({ locale }: HomePageContentProps) {
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-white/55">
               {m.home.eyebrow}
             </p>
-            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">
+            <h1 className="text-[1.75rem] font-extrabold tracking-tight sm:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">
               {m.home.headline}
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-white/70 sm:text-xl">
               {m.home.subheadline}
             </p>
-            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Link href={freeScanHref} className="btn-glass-primary min-w-[180px]">
+            <div className="mt-10 flex w-full flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4">
+              <Link href={freeScanHref} className="btn-glass-primary w-full text-center sm:w-auto sm:min-w-[180px]">
                 {m.common.startFreeScan}
               </Link>
-              <a href={locale === 'fr' ? '/fr#how-it-works' : '/#how-it-works'} className="btn-glass-ghost min-w-[180px]">
+              <a
+                href={locale === 'fr' ? '/fr#how-it-works' : '/#how-it-works'}
+                className="btn-glass-ghost w-full text-center sm:w-auto sm:min-w-[180px]"
+              >
                 {m.home.seeHowItWorks}
               </a>
             </div>

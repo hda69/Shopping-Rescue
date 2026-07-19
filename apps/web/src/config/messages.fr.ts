@@ -19,6 +19,8 @@ export const MESSAGES_FR = {
     dashboard: 'Tableau de bord',
     login: 'Connexion',
     logout: 'Déconnexion',
+    openMenu: 'Ouvrir le menu',
+    closeMenu: 'Fermer le menu',
     terms: 'Conditions',
     privacy: 'Confidentialité',
     disclaimer: 'Avertissement',

@@ -69,7 +69,7 @@ export function AuthForm({ locale, mode, labels }: AuthFormProps) {
     mode === 'login' ? localizePath('/signup', locale) : localizePath('/login', locale);
 
   return (
-    <form onSubmit={onSubmit} className="glass-card mx-auto mt-10 max-w-md space-y-4 p-8">
+    <form onSubmit={onSubmit} className="glass-card mx-auto mt-8 max-w-md space-y-4 p-5 sm:mt-10 sm:p-8">
       <label className="block text-sm font-medium text-[#111]">
         {labels.email}
         <input
