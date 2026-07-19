@@ -53,8 +53,7 @@ export function SiteLogo({
       {icon}
       <Wordmark
         className={
-          wordmarkClassName ||
-          (size === 'sm' ? 'hidden sm:inline text-base' : '')
+          wordmarkClassName || (size === 'sm' ? 'text-sm sm:text-base' : '')
         }
       />
     </span>

@@ -52,8 +52,8 @@ export async function SiteHeader({
           priority={isDark}
           wordmarkClassName={
             isDark
-              ? 'hidden sm:inline text-base [&>span:first-child]:text-white'
-              : 'hidden sm:inline text-base'
+              ? 'text-sm sm:text-base [&>span:first-child]:text-white'
+              : 'text-sm sm:text-base'
           }
         />
 

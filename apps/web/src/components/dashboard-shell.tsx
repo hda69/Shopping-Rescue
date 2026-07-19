@@ -38,7 +38,6 @@ export async function DashboardShell({
         <div className="section-container flex h-16 items-center justify-between gap-4">
           <div className="flex min-w-0 items-center gap-3">
             <SiteLogo href={localizePath('/', locale)} size="sm" />
-            <p className="truncate text-sm text-[#6e6e73] sm:hidden">{session.email}</p>
           </div>
 
           <nav className="hidden items-center gap-2 sm:flex">
