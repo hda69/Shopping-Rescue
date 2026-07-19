@@ -18,6 +18,7 @@ export const MESSAGES_FR = {
     viewPricing: 'Voir les tarifs',
     dashboard: 'Tableau de bord',
     login: 'Connexion',
+    logout: 'Déconnexion',
     terms: 'Conditions',
     privacy: 'Confidentialité',
     disclaimer: 'Avertissement',

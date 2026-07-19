@@ -16,6 +16,7 @@ export const MESSAGES_EN = {
     viewPricing: 'View pricing',
     dashboard: 'Dashboard',
     login: 'Sign in',
+    logout: 'Log out',
     terms: 'Terms',
     privacy: 'Privacy',
     disclaimer: 'Disclaimer',
