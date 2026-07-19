@@ -1,3 +1,4 @@
+import { getSessionFromCookies } from '@shopping-rescue/auth';
 import { getMessages } from '@/config/messages';
 import type { AppLocale } from '@/lib/locale';
 import { localizePath } from '@/lib/locale';
@@ -11,16 +12,21 @@ interface SiteHeaderProps {
   sticky?: boolean;
 }
 
-export function SiteHeader({
+export async function SiteHeader({
   variant = 'light',
   locale = 'en',
   sticky = true,
 }: SiteHeaderProps) {
   const isDark = variant === 'dark';
   const m = getMessages(locale);
+  const session = await getSessionFromCookies();
   const homeHref = localizePath('/', locale);
   const howItWorksAnchor = locale === 'fr' ? '/fr#how-it-works' : '/#how-it-works';
   const pricingAnchor = locale === 'fr' ? '/fr#pricing' : '/#pricing';
+  const accountHref = session
+    ? localizePath('/dashboard', locale)
+    : localizePath('/login', locale);
+  const accountLabel = session ? m.common.dashboard : m.common.login;
 
   return (
     <header
@@ -50,14 +56,14 @@ export function SiteHeader({
             variant={variant}
           />
           <a
-            href={localizePath('/login', locale)}
+            href={accountHref}
             className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
               isDark
                 ? 'text-white/70 hover:bg-white/10 hover:text-white'
                 : 'text-[#6e6e73] hover:bg-black/5 hover:text-[#111]'
             }`}
           >
-            {m.common.login}
+            {accountLabel}
           </a>
           <a
             href={howItWorksAnchor}

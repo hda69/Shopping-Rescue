@@ -26,12 +26,10 @@ export async function POST(request: Request) {
   );
   response.cookies.set(SESSION_COOKIE_NAME, '', {
     httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
     path: '/',
     expires: new Date(0),
   });
   return response;
-}
-
-export async function GET(request: Request) {
-  return POST(request);
 }
