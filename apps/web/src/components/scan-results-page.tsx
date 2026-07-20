@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { getMessages } from '@/config/messages';
 import { SiteLogo } from '@/components/site-logo';
+import { AnimatedLockedTitle, AnimatedRiskScore } from '@/components/scan-result-motion';
 import type { ScanResultData } from '@/lib/scan-result';
 import type { AppLocale } from '@/lib/locale';
 import { localizePath } from '@/lib/locale';
@@ -155,19 +156,14 @@ export function ScanResultsPageContent({
             <div className="grid gap-6 lg:grid-cols-3">
               <div className="rounded-xl border border-gray-200 bg-white p-6 lg:col-span-1">
                 <p className="text-sm font-medium text-gray-500">{m.scan.riskScore}</p>
-                <p className="mt-2 text-5xl font-bold text-navy">
-                  {data.riskScore ?? '—'}
-                  {data.riskScore !== null && (
-                    <span className="text-2xl font-semibold text-gray-400">/{MAX_RISK_SCORE}</span>
-                  )}
-                </p>
-                <p className="mt-1 text-sm text-gray-600">
-                  {riskLabel}
-                  {data.confidenceLevel ? ` · ${data.confidenceLevel} ${m.scan.confidence}` : ''}
-                </p>
-                <p className="mt-2 text-xs text-gray-500">
-                  {m.scan.riskScale.replace('{max}', String(MAX_RISK_SCORE))}
-                </p>
+                <AnimatedRiskScore
+                  score={data.riskScore}
+                  maxScore={MAX_RISK_SCORE}
+                  label={riskLabel}
+                  confidence={data.confidenceLevel}
+                  confidenceSuffix={m.scan.confidence}
+                  scaleLabel={m.scan.riskScale.replace('{max}', String(MAX_RISK_SCORE))}
+                />
                 <div className="mt-4 space-y-1 text-sm text-gray-600">
                   <p>
                     {data.pagesCrawled} {m.scan.pagesCrawled}
@@ -234,8 +230,12 @@ export function ScanResultsPageContent({
               <h2 className="text-xl font-bold text-navy">{m.scan.findingsTitle}</h2>
 
               <div className="mt-4 space-y-4">
-                {data.findings.map((finding) => (
-                  <article key={finding.id} className="rounded-xl border border-gray-200 bg-white p-5">
+                {data.findings.map((finding, index) => (
+                  <article
+                    key={finding.id}
+                    className="scan-fade-up rounded-xl border border-gray-200 bg-white p-5"
+                    style={{ animationDelay: `${Math.min(index, 8) * 70}ms` }}
+                  >
                     <div className="flex flex-wrap items-center gap-2">
                       <span
                         className={`rounded-full border px-2 py-0.5 text-xs font-semibold uppercase ${SEVERITY_COLORS[finding.severity] ?? ''}`}
@@ -298,7 +298,10 @@ export function ScanResultsPageContent({
               {data.lockedFindingsCount > 0 && (
                 <div className="mt-6 rounded-xl border border-dashed border-gray-300 bg-white p-8 text-center">
                   <p className="text-lg font-semibold text-navy">
-                    {m.scan.lockedTitle.replace('{count}', String(data.lockedFindingsCount))}
+                    <AnimatedLockedTitle
+                      template={m.scan.lockedTitle}
+                      count={data.lockedFindingsCount}
+                    />
                   </p>
                   <p className="mt-2 text-sm text-gray-600">{m.scan.lockedSub}</p>
                   <div className="mt-4 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center">

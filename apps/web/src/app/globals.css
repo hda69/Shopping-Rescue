@@ -318,6 +318,15 @@
       rgba(10, 132, 255, 0.85)
     );
   }
+
+  .risk-score-value,
+  .scan-fade-up,
+  .risk-score-fill {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 @property --neon-angle {
@@ -364,7 +373,7 @@
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
   mask-composite: exclude;
-  animation: neon-snake-spin 1.8s linear infinite;
+  animation: neon-snake-spin 3.8s linear infinite;
   pointer-events: none;
   will-change: --neon-angle;
 }
@@ -378,5 +387,47 @@
 @keyframes neon-snake-spin {
   to {
     --neon-angle: 360deg;
+  }
+}
+
+/* Scan results motion */
+.risk-score-value {
+  animation: risk-score-pulse 2.8s ease-in-out 1.1s 2;
+}
+
+.risk-score-track {
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.08);
+}
+
+.risk-score-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #0a84ff, #38bdf8);
+  transition: width 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scan-fade-up {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: scan-fade-up 420ms ease forwards;
+}
+
+@keyframes risk-score-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+@keyframes scan-fade-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
