@@ -334,6 +334,59 @@ export function ScanResultsPageContent({
                       </a>
                     )}
                   </div>
+
+                  <div className="mt-8 border-t border-gray-200 pt-8 text-left">
+                    <p className="text-center text-sm font-semibold uppercase tracking-wide text-gray-500">
+                      {m.scan.comparePlansTitle}
+                    </p>
+                    <div className="mt-6 grid gap-6 sm:grid-cols-3">
+                      <div>
+                        <p className="font-semibold text-navy">{m.pricing.fullAudit}</p>
+                        <p className="mt-1 text-2xl font-extrabold tracking-tight text-[#111]">€79</p>
+                        <p className="text-xs text-gray-500">{m.pricing.oneTime}</p>
+                        <ul className="mt-3 space-y-1.5 text-sm text-gray-600">
+                          {m.pricing.fullFeatures.map((feature) => (
+                            <li key={feature} className="flex gap-2">
+                              <span className="text-[#0a84ff]" aria-hidden>
+                                ·
+                              </span>
+                              <span>{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-navy">{m.pricing.monitoringPro}</p>
+                        <p className="mt-1 text-2xl font-extrabold tracking-tight text-[#111]">€49</p>
+                        <p className="text-xs text-gray-500">{m.pricing.perMonth}</p>
+                        <ul className="mt-3 space-y-1.5 text-sm text-gray-600">
+                          {m.pricing.monitoringFeatures.map((feature) => (
+                            <li key={feature} className="flex gap-2">
+                              <span className="text-[#0a84ff]" aria-hidden>
+                                ·
+                              </span>
+                              <span>{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-navy">{m.pricing.agency}</p>
+                        <p className="mt-1 text-2xl font-extrabold tracking-tight text-[#111]">€199</p>
+                        <p className="text-xs text-gray-500">{m.pricing.perMonth}</p>
+                        <ul className="mt-3 space-y-1.5 text-sm text-gray-600">
+                          {m.pricing.agencyFeatures.map((feature) => (
+                            <li key={feature} className="flex gap-2">
+                              <span className="text-[#0a84ff]" aria-hidden>
+                                ·
+                              </span>
+                              <span>{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               )}
             </section>

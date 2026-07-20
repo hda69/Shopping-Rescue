@@ -226,6 +226,7 @@ export const MESSAGES_EN = {
     unlockFullReport: 'Unlock full report — €79',
     subscribeMonitoring: 'Start Monitoring Pro — €49/mo',
     subscribeAgency: 'Start Agency — €199/mo',
+    comparePlansTitle: 'Compare plans',
     stripeBanner:
       'Stripe is not configured yet. Add your real test keys to `.env` (not the placeholder `sk_test_...` values from `.env.example`).',
     devUnlock: 'Dev only: unlock report without payment',
