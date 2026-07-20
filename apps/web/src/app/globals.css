@@ -309,4 +309,53 @@
   .page-fade-in {
     animation: none !important;
   }
+
+  .btn-neon-snake::before {
+    animation: none !important;
+    opacity: 0.55;
+    transform: none;
+    inset: -40%;
+  }
+}
+
+/* Rotating neon trail around CTA — does not change button fill/shadow */
+.btn-neon-snake {
+  position: relative;
+  display: inline-flex;
+  max-width: 100%;
+  border-radius: 1rem;
+  padding: 2px;
+  overflow: hidden;
+  isolation: isolate;
+  vertical-align: middle;
+}
+
+.btn-neon-snake::before {
+  content: '';
+  position: absolute;
+  inset: -120%;
+  z-index: 0;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg 250deg,
+    rgba(103, 232, 249, 0.15) 270deg,
+    #67e8f9 295deg,
+    #22d3ee 315deg,
+    #0a84ff 335deg,
+    transparent 360deg
+  );
+  animation: neon-snake-spin 2.4s linear infinite;
+  pointer-events: none;
+}
+
+.btn-neon-snake > * {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+@keyframes neon-snake-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

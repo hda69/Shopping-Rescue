@@ -303,19 +303,23 @@ export function ScanResultsPageContent({
                   <p className="mt-2 text-sm text-gray-600">{m.scan.lockedSub}</p>
                   <div className="mt-4 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                     {stripeReady ? (
-                      <a
-                        href={`/api/checkout?scanId=${encodeURIComponent(data.scanId)}&locale=${locale}`}
-                        className="btn-primary inline-block text-center"
-                      >
-                        {m.scan.unlockFullReport}
-                      </a>
+                      <span className="btn-neon-snake w-full sm:w-auto">
+                        <a
+                          href={`/api/checkout?scanId=${encodeURIComponent(data.scanId)}&locale=${locale}`}
+                          className="btn-primary inline-block text-center"
+                        >
+                          {m.scan.unlockFullReport}
+                        </a>
+                      </span>
                     ) : (
-                      <Link
-                        href={`${pricingHref}?scanId=${data.scanId}`}
-                        className="btn-primary inline-block text-center"
-                      >
-                        {m.common.viewPricing}
-                      </Link>
+                      <span className="btn-neon-snake w-full sm:w-auto">
+                        <Link
+                          href={`${pricingHref}?scanId=${data.scanId}`}
+                          className="btn-primary inline-block text-center"
+                        >
+                          {m.common.viewPricing}
+                        </Link>
+                      </span>
                     )}
                     {monitoringReady && (
                       <a
