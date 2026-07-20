@@ -312,20 +312,27 @@
 
   .btn-neon-snake::before {
     animation: none !important;
-    opacity: 0.55;
-    transform: none;
-    inset: -40%;
+    background: linear-gradient(
+      135deg,
+      rgba(103, 232, 249, 0.7),
+      rgba(10, 132, 255, 0.85)
+    );
   }
 }
 
-/* Rotating neon trail around CTA — does not change button fill/shadow */
+@property --neon-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+/* Rotating neon trail around CTA — angle-driven for smoother motion */
 .btn-neon-snake {
   position: relative;
   display: inline-flex;
   max-width: 100%;
   border-radius: 1rem;
   padding: 2px;
-  overflow: hidden;
   isolation: isolate;
   vertical-align: middle;
 }
@@ -333,19 +340,33 @@
 .btn-neon-snake::before {
   content: '';
   position: absolute;
-  inset: -120%;
+  inset: 0;
   z-index: 0;
+  border-radius: inherit;
+  padding: 2px;
   background: conic-gradient(
-    from 0deg,
-    transparent 0deg 250deg,
-    rgba(103, 232, 249, 0.15) 270deg,
-    #67e8f9 295deg,
-    #22d3ee 315deg,
-    #0a84ff 335deg,
+    from var(--neon-angle),
+    transparent 0deg,
+    transparent 220deg,
+    rgba(103, 232, 249, 0) 240deg,
+    rgba(103, 232, 249, 0.35) 268deg,
+    #67e8f9 292deg,
+    #22d3ee 312deg,
+    #38bdf8 332deg,
+    #0a84ff 348deg,
     transparent 360deg
   );
-  animation: neon-snake-spin 2.4s linear infinite;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  animation: neon-snake-spin 1.8s linear infinite;
   pointer-events: none;
+  will-change: --neon-angle;
 }
 
 .btn-neon-snake > * {
@@ -356,6 +377,6 @@
 
 @keyframes neon-snake-spin {
   to {
-    transform: rotate(360deg);
+    --neon-angle: 360deg;
   }
 }
