@@ -225,6 +225,7 @@ export const MESSAGES_EN = {
       'Upgrade to Full Audit to unlock the complete report with evidence, checklist, and PDF download.',
     unlockFullReport: 'Unlock full report — €79',
     subscribeMonitoring: 'Start Monitoring Pro — €49/mo',
+    subscribeAgency: 'Start Agency — €199/mo',
     stripeBanner:
       'Stripe is not configured yet. Add your real test keys to `.env` (not the placeholder `sk_test_...` values from `.env.example`).',
     devUnlock: 'Dev only: unlock report without payment',

@@ -22,6 +22,8 @@ interface ScanResultsPageContentProps {
   data: ScanResultData | null;
   checkoutError: string | null;
   stripeReady: boolean;
+  monitoringReady: boolean;
+  agencyReady: boolean;
   devUnlockReady: boolean;
 }
 
@@ -30,6 +32,8 @@ export function ScanResultsPageContent({
   data,
   checkoutError,
   stripeReady,
+  monitoringReady,
+  agencyReady,
   devUnlockReady,
 }: ScanResultsPageContentProps) {
   const m = getMessages(locale);
@@ -297,28 +301,36 @@ export function ScanResultsPageContent({
                     {m.scan.lockedTitle.replace('{count}', String(data.lockedFindingsCount))}
                   </p>
                   <p className="mt-2 text-sm text-gray-600">{m.scan.lockedSub}</p>
-                  <div className="mt-4 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                  <div className="mt-4 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                     {stripeReady ? (
                       <a
                         href={`/api/checkout?scanId=${encodeURIComponent(data.scanId)}&locale=${locale}`}
-                        className="btn-primary inline-block"
+                        className="btn-primary inline-block text-center"
                       >
                         {m.scan.unlockFullReport}
                       </a>
                     ) : (
                       <Link
                         href={`${pricingHref}?scanId=${data.scanId}`}
-                        className="btn-primary inline-block"
+                        className="btn-primary inline-block text-center"
                       >
                         {m.common.viewPricing}
                       </Link>
                     )}
-                    {stripeReady && (
+                    {monitoringReady && (
                       <a
                         href={`/api/checkout?scanId=${encodeURIComponent(data.scanId)}&locale=${locale}&plan=monitoring_pro`}
-                        className="btn-glass inline-block"
+                        className="btn-glass inline-block text-center"
                       >
                         {m.scan.subscribeMonitoring}
+                      </a>
+                    )}
+                    {agencyReady && (
+                      <a
+                        href={`/api/checkout?scanId=${encodeURIComponent(data.scanId)}&locale=${locale}&plan=agency`}
+                        className="btn-glass inline-block text-center"
+                      >
+                        {m.scan.subscribeAgency}
                       </a>
                     )}
                   </div>

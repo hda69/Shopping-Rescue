@@ -1,5 +1,9 @@
 import { loadEnv } from '@shopping-rescue/shared/load-env';
-import { isStripeConfigured } from '@shopping-rescue/billing';
+import {
+  isAgencyStripeConfigured,
+  isMonitoringStripeConfigured,
+  isStripeConfigured,
+} from '@shopping-rescue/billing';
 import { getScanResult } from '@/lib/scan-result';
 import { ScanResultsPageContent } from '@/components/scan-results-page';
 import { isDevUnlockEnabled } from '@/lib/checkout';
@@ -30,6 +34,8 @@ export default async function FrenchScanResultsPage({
       data={data}
       checkoutError={checkoutError}
       stripeReady={isStripeConfigured()}
+      monitoringReady={isMonitoringStripeConfigured()}
+      agencyReady={isAgencyStripeConfigured()}
       devUnlockReady={isDevUnlockEnabled()}
     />
   );

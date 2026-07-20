@@ -237,6 +237,7 @@ export const MESSAGES_FR = {
       'Passez à l’audit complet pour débloquer le rapport intégral avec preuves, checklist et PDF.',
     unlockFullReport: 'Débloquer le rapport complet — 79 €',
     subscribeMonitoring: 'Lancer Monitoring Pro — 49 €/mois',
+    subscribeAgency: 'Lancer Agency — 199 €/mois',
     stripeBanner:
       'Stripe n’est pas configuré localement. Ajoutez vos vraies clés test dans `.env` (pas les valeurs `sk_test_...` de `.env.example`).',
     devUnlock: 'Dev uniquement : débloquer sans paiement',
