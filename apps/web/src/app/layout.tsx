@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import { headers } from 'next/headers';
 
+import { GoogleAdsTag } from '@/components/google-ads-tag';
 import './globals.css';
 
 const inter = Inter({
@@ -49,7 +50,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang={lang} className={inter.variable}>
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        <GoogleAdsTag />
+        {children}
+      </body>
     </html>
   );
 }

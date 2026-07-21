@@ -4,10 +4,10 @@ import type { NextRequest } from 'next/server';
 
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://js.stripe.com",
+  "script-src 'self' 'unsafe-inline' https://js.stripe.com https://www.googletagmanager.com https://www.googleadservices.com https://www.google.com",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
-  "connect-src 'self' https://*.supabase.co https://api.stripe.com https://accounts.google.com https://oauth2.googleapis.com https://merchantapi.googleapis.com",
+  "connect-src 'self' https://*.supabase.co https://api.stripe.com https://accounts.google.com https://oauth2.googleapis.com https://merchantapi.googleapis.com https://www.googletagmanager.com https://www.google.com https://google.com https://www.googleadservices.com https://www.google.fr https://stats.g.doubleclick.net",
   'frame-src https://js.stripe.com https://hooks.stripe.com',
   "object-src 'none'",
   "base-uri 'self'",
