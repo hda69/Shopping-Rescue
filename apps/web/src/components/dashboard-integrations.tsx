@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getSessionFromCookies } from '@shopping-rescue/auth';
 import {
@@ -68,14 +67,12 @@ export async function DashboardIntegrationsPage({
         {!org || (org.plan !== 'monitoring_pro' && org.plan !== 'agency') ? (
           <p className="glass-card mt-8 p-6 text-sm text-[#6e6e73]">{m.dashboard.noOrg}</p>
         ) : !connection ? (
-          <div className="glass-card mt-8 space-y-4 p-6">
-            <p className="text-sm text-[#6e6e73]">{m.dashboard.mcNotConnected}</p>
-            <Link
-              href={`/api/oauth/google?locale=${locale}`}
-              className="btn-glass-accent inline-block"
-            >
-              {m.dashboard.connectMc}
-            </Link>
+          <div className="glass-card mt-8 space-y-3 p-6">
+            <p className="text-sm font-medium text-[#111]">{m.dashboard.mcComingSoonTitle}</p>
+            <p className="text-sm text-[#6e6e73]">{m.dashboard.mcComingSoonBody}</p>
+            <span className="inline-block rounded-full bg-[#0a84ff]/12 px-3 py-1 text-xs font-semibold text-[#0a84ff]">
+              {m.dashboard.mcComingSoonBadge}
+            </span>
             {error && <p className="text-sm text-amber-700">{error}</p>}
           </div>
         ) : (
