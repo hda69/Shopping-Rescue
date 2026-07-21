@@ -32,8 +32,12 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Shopping Rescue' }],
   icons: {
-    icon: '/logo-icon.png',
-    apple: '/logo-icon.png',
+    icon: [
+      { url: '/logo-icon.png', type: 'image/png', sizes: '512x512' },
+      { url: '/favicon.ico', type: 'image/png' },
+    ],
+    shortcut: '/logo-icon.png',
+    apple: [{ url: '/logo-icon.png', type: 'image/png', sizes: '512x512' }],
   },
   robots: { index: true, follow: true },
 };
