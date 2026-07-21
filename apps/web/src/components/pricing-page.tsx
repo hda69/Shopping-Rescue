@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { getMessages } from '@/config/messages';
 import { SiteHeader } from '@/components/site-header';
+import { TestimonialsMarquee } from '@/components/testimonials-marquee';
 import { getLegalPath } from '@/config/legal-content';
 import type { AppLocale } from '@/lib/locale';
 import { localizePath } from '@/lib/locale';
@@ -220,6 +221,12 @@ export function PricingPageContent({
           </div>
         </section>
       </main>
+
+      <TestimonialsMarquee
+        title={m.home.reviewsTitle}
+        subtitle={m.home.reviewsSub}
+        items={m.home.reviews}
+      />
 
       <footer className="border-t border-black/5 bg-white/40 py-8 backdrop-blur-md">
         <div className="section-container flex flex-col items-center justify-between gap-4 text-sm text-[#6e6e73] sm:flex-row">
