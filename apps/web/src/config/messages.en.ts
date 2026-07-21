@@ -76,6 +76,52 @@ export const MESSAGES_EN = {
           'Receive a risk score, probable causes, evidence, and a prioritized correction checklist.',
       },
     ],
+    reviewsTitle: 'What merchants say',
+    reviewsSub: 'Clarity, speed, and evidence — the qualities that matter when Merchant Center is on the line.',
+    reviews: [
+      {
+        highlight: 'Clear findings',
+        quote:
+          'In one scan I finally understood why Google flagged us. Each issue came with evidence and a concrete next step.',
+        name: 'Camille R.',
+        role: 'Shopify store owner · Fashion',
+      },
+      {
+        highlight: 'Fast diagnosis',
+        quote:
+          'We got a risk score and prioritized checklist the same day. No vague agency deck — just what to fix first.',
+        name: 'Mark T.',
+        role: 'E-commerce manager · Home & living',
+      },
+      {
+        highlight: 'Evidence-based',
+        quote:
+          'The report showed the exact pages and signals. That made our appeal and corrections much more credible.',
+        name: 'Sofia L.',
+        role: 'Founder · Beauty DTC',
+      },
+      {
+        highlight: 'Actionable checklist',
+        quote:
+          'Instead of guessing policies and product data, we followed the ordered checklist and cleaned the critical gaps.',
+        name: 'Julien B.',
+        role: 'Ops lead · Multi-brand shop',
+      },
+      {
+        highlight: 'Independent & honest',
+        quote:
+          'No reinstatement promises — just a serious diagnosis. That honesty is exactly what we needed under pressure.',
+        name: 'Helena K.',
+        role: 'Agency account manager',
+      },
+      {
+        highlight: 'Ongoing monitoring',
+        quote:
+          'Weekly scans catch regressions before they become another Merchant Center surprise. Worth it for peace of mind.',
+        name: 'Alex P.',
+        role: 'Growth · Electronics store',
+      },
+    ],
     pricingTitle: 'Simple, transparent pricing',
     pricingSub: 'Start with a free scan. Upgrade when you need the full report or ongoing monitoring.',
     plans: [

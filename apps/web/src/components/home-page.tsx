@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getMessages } from '@/config/messages';
 import { SiteHeader } from '@/components/site-header';
 import { SiteLogo } from '@/components/site-logo';
+import { TestimonialsMarquee } from '@/components/testimonials-marquee';
 import { getLegalPath } from '@/config/legal-content';
 import type { AppLocale } from '@/lib/locale';
 import { localizePath } from '@/lib/locale';
@@ -91,6 +92,12 @@ export function HomePageContent({ locale }: HomePageContentProps) {
             </div>
           </div>
         </section>
+
+        <TestimonialsMarquee
+          title={m.home.reviewsTitle}
+          subtitle={m.home.reviewsSub}
+          items={m.home.reviews}
+        />
 
         <section id="pricing" className="py-24">
           <div className="section-container">

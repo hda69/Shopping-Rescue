@@ -78,6 +78,53 @@ export const MESSAGES_FR = {
           'Recevez un score de risque, des causes probables, des preuves et une checklist de correction priorisée.',
       },
     ],
+    reviewsTitle: 'Ils en parlent',
+    reviewsSub:
+      'Clarté, rapidité et preuves — les qualités qui comptent quand Merchant Center est en jeu.',
+    reviews: [
+      {
+        highlight: 'Constats clairs',
+        quote:
+          'En un scan, j’ai enfin compris pourquoi Google nous avait signalés. Chaque problème venait avec des preuves et une action concrète.',
+        name: 'Camille R.',
+        role: 'Boutique Shopify · Mode',
+      },
+      {
+        highlight: 'Diagnostic rapide',
+        quote:
+          'Score de risque et checklist priorisée le jour même. Pas de discours vague — juste ce qu’il fallait corriger en premier.',
+        name: 'Mark T.',
+        role: 'Responsable e-commerce · Maison',
+      },
+      {
+        highlight: 'Basé sur des preuves',
+        quote:
+          'Le rapport montrait les pages et signaux exacts. Notre demande de réexamen et nos corrections étaient bien plus crédibles.',
+        name: 'Sofia L.',
+        role: 'Fondatrice · Beauté DTC',
+      },
+      {
+        highlight: 'Checklist actionnable',
+        quote:
+          'Au lieu de deviner sur les politiques et les données produit, on a suivi la checklist et comblé les trous critiques.',
+        name: 'Julien B.',
+        role: 'Ops · Boutique multi-marques',
+      },
+      {
+        highlight: 'Indépendant & honnête',
+        quote:
+          'Aucune promesse de rétablissement — un vrai diagnostic. Cette honnêteté, c’est exactement ce qu’il nous fallait sous pression.',
+        name: 'Helena K.',
+        role: 'Account manager · Agence',
+      },
+      {
+        highlight: 'Monitoring continu',
+        quote:
+          'Les scans hebdomadaires attrapent les régressions avant qu’elles ne redeviennent une surprise Merchant Center.',
+        name: 'Alex P.',
+        role: 'Growth · Électronique',
+      },
+    ],
     pricingTitle: 'Tarifs simples et transparents',
     pricingSub:
       'Commencez par un scan gratuit. Passez à l’audit complet ou au monitoring quand vous en avez besoin.',
