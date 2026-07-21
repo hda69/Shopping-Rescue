@@ -104,6 +104,13 @@ export const MESSAGES_FR = {
         features: ['Scan hebdomadaire automatique', 'Connexion OAuth MC', 'Alertes email'],
         highlighted: false,
       },
+      {
+        name: 'Agency',
+        price: '199 €/mois',
+        description: 'Monitoring multi-boutiques pour agences et équipes multi-marques',
+        features: ['Tout Monitoring Pro', 'Jusqu’à 20 boutiques', 'Espace multi-clients'],
+        highlighted: false,
+      },
     ],
     viewFullPricing: 'Voir tous les forfaits →',
     ctaTitle: 'Prêt à comprendre ce qui a bloqué votre compte ?',

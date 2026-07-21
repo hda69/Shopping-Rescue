@@ -98,7 +98,7 @@ export function HomePageContent({ locale }: HomePageContentProps) {
               <h2 className="text-3xl font-bold tracking-tight text-[#111]">{m.home.pricingTitle}</h2>
               <p className="mt-4 text-[#6e6e73]">{m.home.pricingSub}</p>
             </div>
-            <div className="mt-16 grid gap-6 lg:grid-cols-3">
+            <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {m.home.plans.map((plan) => (
                 <div
                   key={plan.name}

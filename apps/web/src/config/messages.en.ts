@@ -101,6 +101,13 @@ export const MESSAGES_EN = {
         features: ['Automatic weekly scan', 'MC OAuth connection', 'Email alerts'],
         highlighted: false,
       },
+      {
+        name: 'Agency',
+        price: '€199/mo',
+        description: 'Multi-store monitoring for agencies and multi-brand teams',
+        features: ['Everything in Monitoring Pro', 'Up to 20 stores', 'Multi-client workspace'],
+        highlighted: false,
+      },
     ],
     viewFullPricing: 'View full plan comparison →',
     ctaTitle: 'Ready to understand what went wrong?',
