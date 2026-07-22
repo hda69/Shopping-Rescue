@@ -20,6 +20,9 @@ COPY tsconfig.json ./
 COPY --from=deps /app/packages ./packages
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
+# Baked into client + sitemap/robots at build time (Railway runtime env alone is not enough)
+ARG NEXT_PUBLIC_APP_URL=https://shoppingrescue.app
+ENV NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL
 RUN pnpm --filter @shopping-rescue/web build
 
 # Playwright image includes Chromium — required for PDF generation on /api/reports/*/pdf

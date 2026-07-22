@@ -4,11 +4,7 @@ import { getAppBaseUrl } from '@/lib/app-url';
 import { localizePath, type AppLocale } from '@/lib/locale';
 
 export function getSeoBaseUrl(): string {
-  const fromEnv = getAppBaseUrl();
-  if (fromEnv.includes('localhost') && process.env.NODE_ENV === 'production') {
-    return 'https://shoppingrescue.app';
-  }
-  return fromEnv;
+  return getAppBaseUrl();
 }
 
 /** Locale alternates for a path like `/pricing` (without locale prefix). */

@@ -3,9 +3,16 @@
  * Never use request.url alone on Railway — the container host is often 0.0.0.0:PORT.
  */
 export function getAppBaseUrl(request?: Request): string {
-  const fromEnv = process.env.NEXT_PUBLIC_APP_URL?.trim().replace(/\/$/, '');
-  if (fromEnv && !isUnusableHost(fromEnv)) {
-    return fromEnv;
+  const candidates = [
+    process.env.NEXT_PUBLIC_APP_URL,
+    process.env.APP_URL,
+  ];
+
+  for (const raw of candidates) {
+    const value = raw?.trim().replace(/\/$/, '');
+    if (value && !isUnusableHost(value)) {
+      return value;
+    }
   }
 
   if (request) {
@@ -20,11 +27,16 @@ export function getAppBaseUrl(request?: Request): string {
     }
   }
 
+  // Production must never advertise localhost (breaks Search Console sitemaps).
+  if (process.env.NODE_ENV === 'production') {
+    return 'https://shoppingrescue.app';
+  }
+
   return 'http://localhost:3000';
 }
 
 function isUnusableHost(value: string): boolean {
-  return /0\.0\.0\.0|127\.0\.0\.1(?::\d+)?$|\[::\]/.test(value);
+  return /localhost|0\.0\.0\.0|127\.0\.0\.1(?::\d+)?$|\[::\]/.test(value);
 }
 
 export function appUrl(path: string, request?: Request): URL {

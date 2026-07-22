@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import type { AppLocale } from '@shopping-rescue/shared/i18n';
 import { localizePath } from '@shopping-rescue/shared/i18n';
 
+import { getSeoBaseUrl } from '@/lib/seo';
 import { SEO_LANDING_PAGES_EN } from './seo-landing-pages.en';
 import { SEO_LANDING_PAGES_FR } from './seo-landing-pages.fr';
 
@@ -53,7 +54,7 @@ const SEO_LANDING_PAGES_BY_LOCALE: Record<AppLocale, Record<SeoLandingSlug, SeoL
 export const SEO_LANDING_PAGES = SEO_LANDING_PAGES_BY_LOCALE.en;
 
 function getBaseUrl(): string {
-  return (process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000').replace(/\/$/, '');
+  return getSeoBaseUrl();
 }
 
 export function getSeoLandingPage(

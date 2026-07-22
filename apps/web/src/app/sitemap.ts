@@ -1,13 +1,12 @@
 import type { MetadataRoute } from 'next';
 
 import { buildSeoPagePath, SEO_LANDING_SLUGS } from '@/config/seo-landing-pages';
+import { getSeoBaseUrl } from '@/lib/seo';
 
-function getBaseUrl(): string {
-  return (process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000').replace(/\/$/, '');
-}
+export const dynamic = 'force-dynamic';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = getBaseUrl();
+  const baseUrl = getSeoBaseUrl();
   const now = new Date();
 
   const staticRoutes = [
