@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import { headers } from 'next/headers';
 
 import { GoogleAdsTag } from '@/components/google-ads-tag';
+import { getSeoBaseUrl } from '@/lib/seo';
 import './globals.css';
 
 const inter = Inter({
@@ -17,7 +18,10 @@ export const viewport: Viewport = {
   viewportFit: 'cover',
 };
 
+const baseUrl = getSeoBaseUrl();
+
 export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
   title: {
     default: 'Shopping Rescue — Google Merchant Center Diagnostics',
     template: '%s | Shopping Rescue',
@@ -39,6 +43,24 @@ export const metadata: Metadata = {
     ],
     shortcut: '/logo-icon.png',
     apple: [{ url: '/logo-icon.png', type: 'image/png', sizes: '512x512' }],
+  },
+  openGraph: {
+    type: 'website',
+    siteName: 'Shopping Rescue',
+    locale: 'en_US',
+    alternateLocale: ['fr_FR'],
+    url: baseUrl,
+    title: 'Shopping Rescue — Google Merchant Center Diagnostics',
+    description:
+      'Independent SaaS for diagnosing Google Merchant Center suspensions, misrepresentation warnings, and product disapprovals.',
+    images: [{ url: '/logo-icon.png', width: 512, height: 512, alt: 'Shopping Rescue' }],
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Shopping Rescue — Google Merchant Center Diagnostics',
+    description:
+      'Independent SaaS for diagnosing Google Merchant Center suspensions, misrepresentation warnings, and product disapprovals.',
+    images: ['/logo-icon.png'],
   },
   robots: { index: true, follow: true },
 };

@@ -3,6 +3,7 @@ import { loadEnv } from '@shopping-rescue/shared/load-env';
 import { checkDbHealth } from '@shopping-rescue/database';
 import { FreeScanPageContent } from '@/components/free-scan-page';
 import { getMessages } from '@/config/messages';
+import { buildPublicPageMetadata } from '@/lib/seo';
 
 loadEnv();
 
@@ -10,9 +11,12 @@ export const dynamic = 'force-dynamic';
 
 const m = getMessages('en');
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPublicPageMetadata({
   title: m.meta.freeScanTitle,
-};
+  description: m.meta.freeScanDescription,
+  path: '/free-scan',
+  locale: 'en',
+});
 
 export default async function FreeScanPage({
   searchParams,

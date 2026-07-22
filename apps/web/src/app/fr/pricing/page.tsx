@@ -7,21 +7,18 @@ import {
 } from '@shopping-rescue/billing';
 import { PricingPageContent } from '@/components/pricing-page';
 import { getMessages } from '@/config/messages';
+import { buildPublicPageMetadata } from '@/lib/seo';
 
 loadEnv();
 
 const m = getMessages('fr');
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPublicPageMetadata({
   title: m.meta.pricingTitle,
-  alternates: {
-    canonical: '/fr/pricing',
-    languages: {
-      en: '/pricing',
-      fr: '/fr/pricing',
-    },
-  },
-};
+  description: m.meta.pricingDescription,
+  path: '/pricing',
+  locale: 'fr',
+});
 
 export default async function FrenchPricingPage({
   searchParams,

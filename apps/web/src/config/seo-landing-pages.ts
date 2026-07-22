@@ -86,24 +86,36 @@ export function buildSeoLandingMetadata(
 ): Metadata {
   const baseUrl = getBaseUrl();
   const canonical = `${baseUrl}${buildSeoPagePath(page.slug as SeoLandingSlug, locale)}`;
+  const enUrl = `${baseUrl}/${page.slug}`;
+  const frUrl = `${baseUrl}/fr/${page.slug}`;
 
   return {
-    title: page.metaTitle,
+    title: { absolute: page.metaTitle },
     description: page.metaDescription,
     keywords: page.keywords,
     alternates: {
       canonical,
       languages: {
-        en: `${baseUrl}/${page.slug}`,
-        fr: `${baseUrl}/fr/${page.slug}`,
+        en: enUrl,
+        fr: frUrl,
+        'x-default': enUrl,
       },
     },
     openGraph: {
       title: page.metaTitle,
       description: page.metaDescription,
+      url: canonical,
+      siteName: 'Shopping Rescue',
       type: 'website',
       locale: locale === 'fr' ? 'fr_FR' : 'en_US',
       alternateLocale: locale === 'fr' ? ['en_US'] : ['fr_FR'],
+      images: [{ url: '/logo-icon.png', width: 512, height: 512, alt: 'Shopping Rescue' }],
+    },
+    twitter: {
+      card: 'summary',
+      title: page.metaTitle,
+      description: page.metaDescription,
+      images: ['/logo-icon.png'],
     },
   };
 }

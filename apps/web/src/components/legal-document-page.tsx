@@ -119,16 +119,28 @@ export function LegalDocumentPage({ id, locale }: LegalDocumentPageProps) {
 
 export function buildLegalMetadata(id: LegalDocumentId, locale: AppLocale) {
   const document = getLegalDocument(id, locale);
+  const baseUrl = (process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000').replace(/\/$/, '');
+  const enPath = getLegalPath(id, 'en');
+  const frPath = getLegalPath(id, 'fr');
+  const canonical = locale === 'fr' ? `${baseUrl}${frPath}` : `${baseUrl}${enPath}`;
 
   return {
     title: document.title,
     description: document.metaDescription,
     alternates: {
-      canonical: getLegalPath(id, locale),
+      canonical,
       languages: {
-        en: getLegalPath(id, 'en'),
-        fr: getLegalPath(id, 'fr'),
+        en: `${baseUrl}${enPath}`,
+        fr: `${baseUrl}${frPath}`,
+        'x-default': `${baseUrl}${enPath}`,
       },
+    },
+    openGraph: {
+      title: document.title,
+      description: document.metaDescription,
+      url: canonical,
+      type: 'website' as const,
+      images: [{ url: '/logo-icon.png' }],
     },
   };
 }

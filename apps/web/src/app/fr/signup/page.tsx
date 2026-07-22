@@ -1,5 +1,13 @@
-import { SignupPageContent } from '@/components/signup-page';
+import type { Metadata } from 'next';
 
-export default function FrSignupPage() {
+import { SignupPageContent } from '@/components/signup-page';
+import { NOINDEX_ROBOTS } from '@/lib/seo';
+
+export const metadata: Metadata = {
+  title: 'Créer un compte',
+  robots: NOINDEX_ROBOTS,
+};
+
+export default function FrenchSignupPage() {
   return <SignupPageContent locale="fr" />;
 }

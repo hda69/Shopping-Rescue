@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { JsonLd } from '@/components/json-ld';
 import { SiteHeader } from '@/components/site-header';
 import { SiteLogo } from '@/components/site-logo';
 import { getLegalPath } from '@/config/legal-content';
@@ -33,6 +34,20 @@ export function SeoLandingPage({ page, locale = 'en' }: SeoLandingPageProps) {
 
   return (
     <div className="min-h-screen">
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: page.faq.map((item) => ({
+            '@type': 'Question',
+            name: item.question,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: item.answer,
+            },
+          })),
+        }}
+      />
       <section className="hero-cover pb-16 pt-0">
         <div className="hero-glow hero-glow--blue" />
         <div className="hero-glow hero-glow--purple" />

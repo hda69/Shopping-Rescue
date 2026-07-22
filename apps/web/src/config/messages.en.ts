@@ -3,8 +3,12 @@ export const MESSAGES_EN = {
     homeTitle: 'Shopping Rescue — Google Merchant Center Diagnostics',
     homeDescription:
       'Independent SaaS for diagnosing Google Merchant Center suspensions, misrepresentation warnings, and product disapprovals.',
-    freeScanTitle: 'Run a free scan',
-    pricingTitle: 'Pricing',
+    freeScanTitle: 'Free Merchant Center scan — risk score in minutes',
+    freeScanDescription:
+      'Scan your storefront for free. Get a risk score, severity breakdown, and 2 detailed findings before upgrading to a full audit.',
+    pricingTitle: 'Merchant Center audit pricing — Free, €79, Monitoring, Agency',
+    pricingDescription:
+      'Compare Free Scan, Full Audit (€79), Monitoring Pro (€49/mo, up to 3 stores), and Agency (€199/mo, up to 20 stores).',
   },
   common: {
     languageLabel: 'Language',

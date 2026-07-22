@@ -1,5 +1,13 @@
-import { LoginPageContent } from '@/components/login-page';
+import type { Metadata } from 'next';
 
-export default function FrLoginPage() {
+import { LoginPageContent } from '@/components/login-page';
+import { NOINDEX_ROBOTS } from '@/lib/seo';
+
+export const metadata: Metadata = {
+  title: 'Connexion',
+  robots: NOINDEX_ROBOTS,
+};
+
+export default function FrenchLoginPage() {
   return <LoginPageContent locale="fr" />;
 }
