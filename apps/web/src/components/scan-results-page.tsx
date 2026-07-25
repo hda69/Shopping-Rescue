@@ -131,8 +131,11 @@ export function ScanResultsPageContent({
         )}
 
         {data.status === 'failed' && (
-          <div className="mb-8 rounded-xl border border-red-200 bg-red-50 px-6 py-4 text-red-700">
-            {m.scan.scanFailed}
+          <div className="mb-8 rounded-xl border border-red-200 bg-red-50 px-6 py-6 text-center sm:text-left">
+            <p className="text-red-700">{m.scan.scanFailed}</p>
+            <Link href={freeScanHref} className="btn-primary mt-4 inline-block">
+              {m.scan.backToFreeScan}
+            </Link>
           </div>
         )}
 

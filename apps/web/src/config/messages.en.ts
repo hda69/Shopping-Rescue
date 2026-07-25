@@ -330,6 +330,7 @@ export const MESSAGES_EN = {
   scan: {
     notFound: 'Scan not found',
     startNewScan: 'Start a new scan',
+    backToFreeScan: 'Back to free scan',
     upgradeLink: 'Upgrade to full report',
     workerOfflineTitle: 'Background worker is not running',
     workerOfflineBody:

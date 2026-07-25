@@ -336,6 +336,7 @@ export const MESSAGES_FR = {
   scan: {
     notFound: 'Scan introuvable',
     startNewScan: 'Lancer un nouveau scan',
+    backToFreeScan: 'Retour au scan gratuit',
     upgradeLink: 'Passer au rapport complet',
     workerOfflineTitle: 'Le worker en arrière-plan n’est pas démarré',
     workerOfflineBody:
