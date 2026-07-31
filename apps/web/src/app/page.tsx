@@ -48,7 +48,7 @@ export default function HomePage() {
           offers: {
             '@type': 'Offer',
             price: '0',
-            priceCurrency: 'EUR',
+            priceCurrency: 'USD',
             description: 'Free Merchant Center diagnostic scan',
           },
         }}

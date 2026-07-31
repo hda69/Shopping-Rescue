@@ -1,4 +1,4 @@
-export const MESSAGES_EN = {
+﻿export const MESSAGES_EN = {
   meta: {
     homeTitle: 'Shopping Rescue — Google Merchant Center Diagnostics',
     homeDescription:
@@ -6,9 +6,9 @@ export const MESSAGES_EN = {
     freeScanTitle: 'Free Merchant Center scan — risk score in minutes',
     freeScanDescription:
       'Scan your storefront for free. Get a risk score, severity breakdown, and 2 detailed findings before upgrading to a full audit.',
-    pricingTitle: 'Merchant Center audit pricing — Free, €79, Monitoring, Agency',
+    pricingTitle: 'Merchant Center audit pricing — Free, $79, Monitoring, Agency',
     pricingDescription:
-      'Compare Free Scan, Full Audit (€79), Monitoring Pro (€49/mo, up to 3 stores), and Agency (€199/mo, up to 20 stores).',
+      'Compare Free Scan, Full Audit ($79), Monitoring Pro ($49/mo, up to 3 stores), and Agency ($199/mo, up to 20 stores).',
   },
   common: {
     languageLabel: 'Language',
@@ -55,7 +55,7 @@ export const MESSAGES_EN = {
     seeHowItWorks: 'See how it works',
     heroNote: 'No Google passwords required · Results in minutes · Independent service',
     stats: [
-      { label: 'Free scan', value: '€0', sub: 'No credit card' },
+      { label: 'Free scan', value: '$0', sub: 'No credit card' },
       { label: 'Coverage', value: '15', sub: 'Pages analyzed' },
       { label: 'Results', value: '2 min', sub: 'Typical turnaround' },
     ],
@@ -131,14 +131,14 @@ export const MESSAGES_EN = {
     plans: [
       {
         name: 'Free Scan',
-        price: '€0',
+        price: '$0',
         description: 'Quick risk assessment for 1 store — 2 detailed findings',
         features: ['1 store', '15 pages crawled', 'Global risk score', 'Issue count by severity'],
         highlighted: false,
       },
       {
         name: 'Full Audit',
-        price: '€79',
+        price: '$79',
         description: 'Complete diagnostic for 1 store with evidence and checklist',
         features: ['1 store', '150 pages crawled', 'Full report + PDF', 'Free re-scan after fixes'],
         highlighted: true,
@@ -146,14 +146,14 @@ export const MESSAGES_EN = {
       },
       {
         name: 'Monitoring Pro',
-        price: '€49/mo',
+        price: '$49/mo',
         description: 'Weekly monitoring for up to 3 stores, with alerts',
         features: ['Up to 3 stores', 'Automatic weekly scan', 'Email alerts on new high risks'],
         highlighted: false,
       },
       {
         name: 'Agency',
-        price: '€199/mo',
+        price: '$199/mo',
         description: 'Multi-client monitoring for up to 20 stores',
         features: ['Up to 20 stores', 'Everything in Monitoring Pro', 'Multi-client workspace'],
         highlighted: false,
@@ -296,7 +296,7 @@ export const MESSAGES_EN = {
       { feature: 'Weekly automatic scans', free: '—', full: '—', monitoring: 'Every 7 days', agency: 'Every 7 days' },
       { feature: 'Email risk alerts', free: '—', full: '—', monitoring: 'Yes', agency: 'Yes' },
       { feature: 'Manual re-scans / day', free: '—', full: '1', monitoring: '2', agency: '5' },
-      { feature: 'Billing', free: 'Free', full: '€79 once', monitoring: '€49 / month', agency: '€199 / month' },
+      { feature: 'Billing', free: 'Free', full: '$79 once', monitoring: '$49 / month', agency: '$199 / month' },
     ],
     chooseTitle: 'Which plan should you buy?',
     chooseItems: [
@@ -306,22 +306,22 @@ export const MESSAGES_EN = {
       },
       {
         title: 'You need to fix one store now?',
-        body: 'Choose Full Audit (€79). It is a one-time deep diagnostic — ideal for suspensions, misrepresentation, or product disapprovals on a single site.',
+        body: 'Choose Full Audit ($79). It is a one-time deep diagnostic — ideal for suspensions, misrepresentation, or product disapprovals on a single site.',
       },
       {
         title: 'You want to avoid the next surprise?',
-        body: 'Choose Monitoring Pro (€49/mo) if you manage 1–3 stores and want weekly scans plus email alerts when new high risks appear.',
+        body: 'Choose Monitoring Pro ($49/mo) if you manage 1–3 stores and want weekly scans plus email alerts when new high risks appear.',
       },
       {
         title: 'You run an agency or many brands?',
-        body: 'Choose Agency (€199/mo) for up to 20 stores, higher re-scan limits, and a multi-client workspace.',
+        body: 'Choose Agency ($199/mo) for up to 20 stores, higher re-scan limits, and a multi-client workspace.',
       },
     ],
     includedLabel: 'What’s included',
     startFreeScan: 'Start free scan',
-    unlockScan: 'Unlock this scan — €79',
-    subscribeMonitoring: 'Subscribe — €49/mo',
-    subscribeAgency: 'Subscribe — €199/mo',
+    unlockScan: 'Unlock this scan — $79',
+    subscribeMonitoring: 'Subscribe — $49/mo',
+    subscribeAgency: 'Subscribe — $199/mo',
     runFreeScanFirst: 'Run a free scan first',
     stripeNotConfigured: 'Checkout is temporarily unavailable. Please try again shortly or contact support.',
     monitoringStripeNotConfigured: 'Monitoring Pro checkout is temporarily unavailable.',
@@ -362,9 +362,9 @@ export const MESSAGES_EN = {
     lockedTitle: '+{count} more findings locked',
     lockedSub:
       'Upgrade to Full Audit to unlock the complete report with evidence, checklist, and PDF download.',
-    unlockFullReport: 'Unlock full report — €79',
-    subscribeMonitoring: 'Start Monitoring Pro — €49/mo',
-    subscribeAgency: 'Start Agency — €199/mo',
+    unlockFullReport: 'Unlock full report — $79',
+    subscribeMonitoring: 'Start Monitoring Pro — $49/mo',
+    subscribeAgency: 'Start Agency — $199/mo',
     comparePlansTitle: 'Compare plans',
     stripeBanner:
       'Stripe is not configured yet. Add your real test keys to `.env` (not the placeholder `sk_test_...` values from `.env.example`).',

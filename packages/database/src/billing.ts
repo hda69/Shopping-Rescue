@@ -31,7 +31,7 @@ export async function createPendingPurchase(input: CreatePendingPurchaseInput) {
       stripeCheckoutSessionId: input.stripeCheckoutSessionId,
       plan: input.plan ?? 'full_audit',
       amountCents: input.amountCents,
-      currency: input.currency ?? 'eur',
+      currency: input.currency ?? 'usd',
       status: 'pending',
     })
     .onConflictDoNothing({ target: oneTimePurchases.stripeCheckoutSessionId })

@@ -1,4 +1,4 @@
-import type { AppLocale } from '@shopping-rescue/shared/i18n';
+﻿import type { AppLocale } from '@shopping-rescue/shared/i18n';
 
 export type LegalDocumentId = 'terms' | 'privacy' | 'disclaimer';
 
@@ -102,7 +102,7 @@ const LEGAL_DOCUMENTS: Record<AppLocale, Record<LegalDocumentId, LegalDocument>>
         },
         {
           type: 'p',
-          text: 'To the maximum extent permitted by law, Shopping Rescue and its operators shall not be liable for indirect, incidental, special, or consequential damages, or for loss of profits, revenue, or data arising from your use of the service. Our total liability for any claim shall not exceed the amount you paid us in the twelve months preceding the claim, or €100 if you used only free features.',
+          text: 'To the maximum extent permitted by law, Shopping Rescue and its operators shall not be liable for indirect, incidental, special, or consequential damages, or for loss of profits, revenue, or data arising from your use of the service. Our total liability for any claim shall not exceed the amount you paid us in the twelve months preceding the claim, or $100 if you used only free features.',
         },
         {
           type: 'h2',
@@ -438,7 +438,7 @@ const LEGAL_DOCUMENTS: Record<AppLocale, Record<LegalDocumentId, LegalDocument>>
         },
         {
           type: 'p',
-          text: 'Dans la mesure maximale permise par la loi, Shopping Rescue et ses opérateurs ne sauraient être tenus responsables de dommages indirects, accessoires, spéciaux ou consécutifs, ni de pertes de profits, de revenus ou de données liées à votre utilisation du service. Notre responsabilité totale pour toute réclamation ne dépassera pas le montant que vous nous avez payé au cours des douze mois précédant la réclamation, ou 100 € si vous n\'avez utilisé que les fonctionnalités gratuites.',
+          text: 'Dans la mesure maximale permise par la loi, Shopping Rescue et ses opérateurs ne sauraient être tenus responsables de dommages indirects, accessoires, spéciaux ou consécutifs, ni de pertes de profits, de revenus ou de données liées à votre utilisation du service. Notre responsabilité totale pour toute réclamation ne dépassera pas le montant que vous nous avez payé au cours des douze mois précédant la réclamation, ou $100 si vous n\'avez utilisé que les fonctionnalités gratuites.',
         },
         {
           type: 'h2',

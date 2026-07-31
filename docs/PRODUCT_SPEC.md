@@ -1,4 +1,4 @@
-# Shopping Rescue — Product Specification
+﻿# Shopping Rescue — Product Specification
 
 > Version: 1.0.0 · Status: MVP · Last updated: 2026-07-12
 
@@ -44,10 +44,10 @@ All prices, limits, and intervals are configurable via `system_settings` table a
 
 | Plan | Price (default) | Billing |
 |---|---|---|
-| **Free Scan** | €0 | — |
-| **Full Audit** | €79 | One-time |
-| **Monitoring Pro** | €49/mo | Subscription |
-| **Agency** | €199/mo | Subscription |
+| **Free Scan** | $0 | — |
+| **Full Audit** | $79 | One-time |
+| **Monitoring Pro** | $49/mo | Subscription |
+| **Agency** | $199/mo | Subscription |
 
 ### Free Scan
 

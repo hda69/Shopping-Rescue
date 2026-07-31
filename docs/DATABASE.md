@@ -210,7 +210,7 @@ CREATE TABLE one_time_purchases (
   stripe_checkout_session_id TEXT UNIQUE,
   plan                    TEXT NOT NULL DEFAULT 'full_audit',
   amount_cents            INTEGER NOT NULL,
-  currency                TEXT NOT NULL DEFAULT 'eur',
+  currency                TEXT NOT NULL DEFAULT 'usd',
   status                  TEXT NOT NULL DEFAULT 'pending',  -- pending | completed | refunded
   created_at              TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at              TIMESTAMPTZ NOT NULL DEFAULT now()

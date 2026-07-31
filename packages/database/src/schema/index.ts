@@ -280,7 +280,7 @@ export const oneTimePurchases = pgTable('one_time_purchases', {
   stripeCheckoutSessionId: text('stripe_checkout_session_id').unique(),
   plan: text('plan').notNull().default('full_audit'),
   amountCents: integer('amount_cents').notNull(),
-  currency: text('currency').notNull().default('eur'),
+  currency: text('currency').notNull().default('usd'),
   status: text('status').notNull().default('pending'),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),

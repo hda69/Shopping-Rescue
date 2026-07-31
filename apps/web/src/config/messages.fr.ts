@@ -1,4 +1,4 @@
-import type { AppMessages } from './messages.en';
+﻿import type { AppMessages } from './messages.en';
 
 export const MESSAGES_FR = {
   meta: {
@@ -8,9 +8,9 @@ export const MESSAGES_FR = {
     freeScanTitle: 'Scan Merchant Center gratuit — score de risque en minutes',
     freeScanDescription:
       'Scannez votre boutique gratuitement. Obtenez un score de risque, le détail par sévérité et 2 constats avant l’audit complet.',
-    pricingTitle: 'Tarifs audit Merchant Center — Gratuit, 79 €, Monitoring, Agency',
+    pricingTitle: 'Tarifs audit Merchant Center — Gratuit, $79, Monitoring, Agency',
     pricingDescription:
-      'Comparez Scan gratuit, Audit complet (79 €), Monitoring Pro (49 €/mois, 3 boutiques) et Agency (199 €/mois, 20 boutiques).',
+      'Comparez Scan gratuit, Audit complet ($79), Monitoring Pro ($49/mois, 3 boutiques) et Agency ($199/mois, 20 boutiques).',
   },
   common: {
     languageLabel: 'Langue',
@@ -57,7 +57,7 @@ export const MESSAGES_FR = {
     seeHowItWorks: 'Voir comment ça marche',
     heroNote: 'Aucun mot de passe Google · Résultats en minutes · Service indépendant',
     stats: [
-      { label: 'Scan gratuit', value: '0 €', sub: 'Sans carte bancaire' },
+      { label: 'Scan gratuit', value: '$0', sub: 'Sans carte bancaire' },
       { label: 'Couverture', value: '15', sub: 'Pages analysées' },
       { label: 'Délai', value: '2 min', sub: 'Durée typique' },
     ],
@@ -135,14 +135,14 @@ export const MESSAGES_FR = {
     plans: [
       {
         name: 'Scan gratuit',
-        price: '0 €',
+        price: '$0',
         description: 'Évaluation rapide pour 1 boutique — 2 constats détaillés',
         features: ['1 boutique', '15 pages crawlées', 'Score de risque global', 'Comptage par sévérité'],
         highlighted: false,
       },
       {
         name: 'Audit complet',
-        price: '79 €',
+        price: '$79',
         description: 'Diagnostic complet pour 1 boutique avec preuves et checklist',
         features: ['1 boutique', '150 pages crawlées', 'Rapport complet + PDF', 'Re-scan gratuit après corrections'],
         highlighted: true,
@@ -150,14 +150,14 @@ export const MESSAGES_FR = {
       },
       {
         name: 'Monitoring Pro',
-        price: '49 €/mois',
+        price: '$49/mois',
         description: 'Surveillance hebdomadaire jusqu’à 3 boutiques, avec alertes',
         features: ['Jusqu’à 3 boutiques', 'Scan hebdomadaire automatique', 'Alertes email sur nouveaux risques élevés'],
         highlighted: false,
       },
       {
         name: 'Agency',
-        price: '199 €/mois',
+        price: '$199/mois',
         description: 'Monitoring multi-clients jusqu’à 20 boutiques',
         features: ['Jusqu’à 20 boutiques', 'Tout Monitoring Pro', 'Espace multi-clients'],
         highlighted: false,
@@ -301,7 +301,7 @@ export const MESSAGES_FR = {
       { feature: 'Scans hebdo auto', free: '—', full: '—', monitoring: 'Tous les 7 jours', agency: 'Tous les 7 jours' },
       { feature: 'Alertes email', free: '—', full: '—', monitoring: 'Oui', agency: 'Oui' },
       { feature: 'Re-scans manuels / jour', free: '—', full: '1', monitoring: '2', agency: '5' },
-      { feature: 'Facturation', free: 'Gratuit', full: '79 € une fois', monitoring: '49 € / mois', agency: '199 € / mois' },
+      { feature: 'Facturation', free: 'Gratuit', full: '$79 une fois', monitoring: '$49 / mois', agency: '$199 / mois' },
     ],
     chooseTitle: 'Quel plan choisir ?',
     chooseItems: [
@@ -311,22 +311,22 @@ export const MESSAGES_FR = {
       },
       {
         title: 'Vous devez corriger une boutique maintenant ?',
-        body: 'Choisissez l’Audit complet (79 €). Diagnostic ponctuel profond — idéal suspension, misrepresentation ou refus produits sur un seul site.',
+        body: 'Choisissez l’Audit complet ($79). Diagnostic ponctuel profond — idéal suspension, misrepresentation ou refus produits sur un seul site.',
       },
       {
         title: 'Vous voulez éviter la prochaine surprise ?',
-        body: 'Choisissez Monitoring Pro (49 €/mois) pour 1 à 3 boutiques, avec scans hebdomadaires et alertes email sur les nouveaux risques élevés.',
+        body: 'Choisissez Monitoring Pro ($49/mois) pour 1 à 3 boutiques, avec scans hebdomadaires et alertes email sur les nouveaux risques élevés.',
       },
       {
         title: 'Vous gérez une agence ou plusieurs marques ?',
-        body: 'Choisissez Agency (199 €/mois) : jusqu’à 20 boutiques, plus de re-scans, espace multi-clients.',
+        body: 'Choisissez Agency ($199/mois) : jusqu’à 20 boutiques, plus de re-scans, espace multi-clients.',
       },
     ],
     includedLabel: 'Inclus',
     startFreeScan: 'Lancer un scan gratuit',
-    unlockScan: 'Débloquer ce scan — 79 €',
-    subscribeMonitoring: 'S’abonner — 49 €/mois',
-    subscribeAgency: 'S’abonner — 199 €/mois',
+    unlockScan: 'Débloquer ce scan — $79',
+    subscribeMonitoring: 'S’abonner — $49/mois',
+    subscribeAgency: 'S’abonner — $199/mois',
     runFreeScanFirst: 'Lancer d’abord un scan gratuit',
     stripeNotConfigured:
       'Le paiement est temporairement indisponible. Réessayez plus tard ou contactez le support.',
@@ -370,9 +370,9 @@ export const MESSAGES_FR = {
     lockedTitle: '+{count} constats supplémentaires verrouillés',
     lockedSub:
       'Passez à l’audit complet pour débloquer le rapport intégral avec preuves, checklist et PDF.',
-    unlockFullReport: 'Débloquer le rapport complet — 79 €',
-    subscribeMonitoring: 'Lancer Monitoring Pro — 49 €/mois',
-    subscribeAgency: 'Lancer Agency — 199 €/mois',
+    unlockFullReport: 'Débloquer le rapport complet — $79',
+    subscribeMonitoring: 'Lancer Monitoring Pro — $49/mois',
+    subscribeAgency: 'Lancer Agency — $199/mois',
     comparePlansTitle: 'Comparer les offres',
     stripeBanner:
       'Stripe n’est pas configuré localement. Ajoutez vos vraies clés test dans `.env` (pas les valeurs `sk_test_...` de `.env.example`).',

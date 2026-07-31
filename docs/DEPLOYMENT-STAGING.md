@@ -1,4 +1,4 @@
-# Déploiement staging — Shopping Rescue
+﻿# Déploiement staging — Shopping Rescue
 
 Guide pour déployer **web + worker + PostgreSQL** sur [Railway](https://railway.app) (recommandé pour ce monorepo : Next.js + Playwright worker).
 
@@ -331,9 +331,9 @@ pnpm db:migrate && pnpm db:seed
 4. Copier le **Signing secret** → `STRIPE_WEBHOOK_SECRET` sur Railway (web)
 5. Redéployer **web**
 
-### Monitoring Pro (€49/mo) & Agency (€199/mo)
+### Monitoring Pro ($49/mo) & Agency ($199/mo)
 
-1. Stripe → Products → prix **récurrent mensuel** (€49 Monitoring / €199 Agency)
+1. Stripe → Products → prix **récurrent mensuel** ($49 Monitoring / $199 Agency)
 2. Copier les IDs `price_...` → `STRIPE_PRICE_MONITORING_PRO` / `STRIPE_PRICE_AGENCY`
 3. Ajouter `CRON_SECRET` (string aléatoire) sur le service **web**
 4. Planifier un cron (Railway Cron / externe) chaque jour :

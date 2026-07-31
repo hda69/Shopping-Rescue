@@ -1,4 +1,4 @@
-import Link from 'next/link';
+﻿import Link from 'next/link';
 
 import { getMessages } from '@/config/messages';
 import { SiteHeader } from '@/components/site-header';
@@ -60,7 +60,7 @@ export function PricingPageContent({
     {
       key: 'free',
       name: m.pricing.freeScan,
-      price: '€0',
+      price: '$0',
       priceNote: null as string | null,
       bestFor: m.pricing.freeBestFor,
       description: m.pricing.freeDescription,
@@ -76,7 +76,7 @@ export function PricingPageContent({
     {
       key: 'full',
       name: m.pricing.fullAudit,
-      price: '€79',
+      price: '$79',
       priceNote: m.pricing.oneTime,
       bestFor: m.pricing.fullBestFor,
       description: m.pricing.fullDescription,
@@ -97,7 +97,7 @@ export function PricingPageContent({
     {
       key: 'monitoring',
       name: m.pricing.monitoringPro,
-      price: '€49',
+      price: '$49',
       priceNote: m.pricing.perMonth,
       bestFor: m.pricing.monitoringBestFor,
       description: m.pricing.monitoringDescription,
@@ -118,7 +118,7 @@ export function PricingPageContent({
     {
       key: 'agency',
       name: m.pricing.agency,
-      price: '€199',
+      price: '$199',
       priceNote: m.pricing.perMonth,
       bestFor: m.pricing.agencyBestFor,
       description: m.pricing.agencyDescription,

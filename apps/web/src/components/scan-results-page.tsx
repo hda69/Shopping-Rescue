@@ -1,4 +1,4 @@
-import Link from 'next/link';
+﻿import Link from 'next/link';
 
 import { getMessages } from '@/config/messages';
 import { SiteLogo } from '@/components/site-logo';
@@ -352,7 +352,7 @@ export function ScanResultsPageContent({
                     <div className="mt-6 grid gap-6 sm:grid-cols-3">
                       <div>
                         <p className="font-semibold text-navy">{m.pricing.fullAudit}</p>
-                        <p className="mt-1 text-2xl font-extrabold tracking-tight text-[#111]">€79</p>
+                        <p className="mt-1 text-2xl font-extrabold tracking-tight text-[#111]">$79</p>
                         <p className="text-xs text-gray-500">{m.pricing.oneTime}</p>
                         <ul className="mt-3 space-y-1.5 text-sm text-gray-600">
                           {m.pricing.fullFeatures.map((feature) => (
@@ -367,7 +367,7 @@ export function ScanResultsPageContent({
                       </div>
                       <div>
                         <p className="font-semibold text-navy">{m.pricing.monitoringPro}</p>
-                        <p className="mt-1 text-2xl font-extrabold tracking-tight text-[#111]">€49</p>
+                        <p className="mt-1 text-2xl font-extrabold tracking-tight text-[#111]">$49</p>
                         <p className="text-xs text-gray-500">{m.pricing.perMonth}</p>
                         <ul className="mt-3 space-y-1.5 text-sm text-gray-600">
                           {m.pricing.monitoringFeatures.map((feature) => (
@@ -382,7 +382,7 @@ export function ScanResultsPageContent({
                       </div>
                       <div>
                         <p className="font-semibold text-navy">{m.pricing.agency}</p>
-                        <p className="mt-1 text-2xl font-extrabold tracking-tight text-[#111]">€199</p>
+                        <p className="mt-1 text-2xl font-extrabold tracking-tight text-[#111]">$199</p>
                         <p className="text-xs text-gray-500">{m.pricing.perMonth}</p>
                         <ul className="mt-3 space-y-1.5 text-sm text-gray-600">
                           {m.pricing.agencyFeatures.map((feature) => (
