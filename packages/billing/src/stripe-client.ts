@@ -6,7 +6,7 @@ let stripeClient: Stripe | null = null;
 export { isStripeConfigured };
 
 export function getStripeSecretKey(): string {
-  const key = process.env.STRIPE_SECRET_KEY;
+  const key = process.env.STRIPE_SECRET_KEY?.trim();
   if (!key) {
     throw new Error('STRIPE_SECRET_KEY is not configured');
   }
@@ -14,7 +14,7 @@ export function getStripeSecretKey(): string {
 }
 
 export function getStripeWebhookSecret(): string {
-  const secret = process.env.STRIPE_WEBHOOK_SECRET;
+  const secret = process.env.STRIPE_WEBHOOK_SECRET?.trim();
   if (!secret) {
     throw new Error('STRIPE_WEBHOOK_SECRET is not configured');
   }
@@ -28,7 +28,7 @@ export function getStripePriceId(plan: 'full_audit' | 'monitoring_pro' | 'agency
     agency: 'STRIPE_PRICE_AGENCY',
   } as const;
 
-  const value = process.env[envMap[plan]];
+  const value = process.env[envMap[plan]]?.trim();
   if (!value) {
     throw new Error(`${envMap[plan]} is not configured`);
   }

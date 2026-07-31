@@ -16,8 +16,8 @@ function isPlaceholderEnvValue(value: string | undefined): boolean {
 }
 
 export function isStripeConfigured(): boolean {
-  const secretKey = process.env.STRIPE_SECRET_KEY;
-  const priceId = process.env.STRIPE_PRICE_FULL_AUDIT;
+  const secretKey = process.env.STRIPE_SECRET_KEY?.trim();
+  const priceId = process.env.STRIPE_PRICE_FULL_AUDIT?.trim();
 
   // APP URL is resolved separately (NEXT_PUBLIC_APP_URL / APP_URL / production default).
   // Missing it must not show “Stripe not configured” when keys are present on Railway.
@@ -31,14 +31,14 @@ export function isStripeConfigured(): boolean {
 
 export function isMonitoringStripeConfigured(): boolean {
   if (!isStripeConfigured()) return false;
-  const priceId = process.env.STRIPE_PRICE_MONITORING_PRO;
+  const priceId = process.env.STRIPE_PRICE_MONITORING_PRO?.trim();
   if (!priceId || isPlaceholderEnvValue(priceId)) return false;
   return priceId.startsWith('price_');
 }
 
 export function isAgencyStripeConfigured(): boolean {
   if (!isStripeConfigured()) return false;
-  const priceId = process.env.STRIPE_PRICE_AGENCY;
+  const priceId = process.env.STRIPE_PRICE_AGENCY?.trim();
   if (!priceId || isPlaceholderEnvValue(priceId)) return false;
   return priceId.startsWith('price_');
 }
