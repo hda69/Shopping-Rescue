@@ -18,9 +18,10 @@ function isPlaceholderEnvValue(value: string | undefined): boolean {
 export function isStripeConfigured(): boolean {
   const secretKey = process.env.STRIPE_SECRET_KEY;
   const priceId = process.env.STRIPE_PRICE_FULL_AUDIT;
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL;
 
-  if (!secretKey || !priceId || !appUrl) return false;
+  // APP URL is resolved separately (NEXT_PUBLIC_APP_URL / APP_URL / production default).
+  // Missing it must not show “Stripe not configured” when keys are present on Railway.
+  if (!secretKey || !priceId) return false;
   if (isPlaceholderEnvValue(secretKey) || isPlaceholderEnvValue(priceId)) return false;
   if (!secretKey.startsWith('sk_')) return false;
   if (!priceId.startsWith('price_')) return false;

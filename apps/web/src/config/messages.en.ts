@@ -367,7 +367,7 @@
     subscribeAgency: 'Start Agency — $199/mo',
     comparePlansTitle: 'Compare plans',
     stripeBanner:
-      'Stripe is not configured yet. Add your real test keys to `.env` (not the placeholder `sk_test_...` values from `.env.example`).',
+      'Checkout is temporarily unavailable. Payments will be back shortly — please try again later.',
     devUnlock: 'Dev only: unlock report without payment',
     riskLabels: {
       low: 'Low detected risk',

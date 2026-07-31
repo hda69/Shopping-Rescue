@@ -36,7 +36,20 @@ export function getStripePriceId(plan: 'full_audit' | 'monitoring_pro' | 'agency
 }
 
 export function getAppUrl(): string {
-  return process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
+  const candidates = [process.env.NEXT_PUBLIC_APP_URL, process.env.APP_URL];
+  for (const raw of candidates) {
+    const value = raw?.trim().replace(/\/$/, '');
+    if (value && !/localhost|0\.0\.0\.0|127\.0\.0\.1/.test(value)) {
+      return value;
+    }
+    if (value && process.env.NODE_ENV !== 'production') {
+      return value;
+    }
+  }
+  if (process.env.NODE_ENV === 'production') {
+    return 'https://shoppingrescue.app';
+  }
+  return 'http://localhost:3000';
 }
 
 export function getStripeClient(): Stripe {

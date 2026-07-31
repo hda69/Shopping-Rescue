@@ -29,7 +29,7 @@ export async function startFullAuditCheckout(
 ): Promise<string> {
   if (!isStripeConfigured()) {
     throw new Error(
-      'Stripe is not configured. Add STRIPE_SECRET_KEY and STRIPE_PRICE_FULL_AUDIT to your .env file.',
+      'Stripe is not configured on this server. Set STRIPE_SECRET_KEY and STRIPE_PRICE_FULL_AUDIT on the web service (Railway), then redeploy.',
     );
   }
 
@@ -82,7 +82,7 @@ export async function startMonitoringProCheckout(
 ): Promise<string> {
   if (!isMonitoringStripeConfigured()) {
     throw new Error(
-      'Monitoring Pro Stripe price is not configured. Add STRIPE_PRICE_MONITORING_PRO to your .env file.',
+      'Monitoring Pro is not configured. Set STRIPE_PRICE_MONITORING_PRO on the web service (Railway), then redeploy.',
     );
   }
 
@@ -104,7 +104,7 @@ export async function startAgencyCheckout(
 ): Promise<string> {
   if (!isAgencyStripeConfigured()) {
     throw new Error(
-      'Agency Stripe price is not configured. Add STRIPE_PRICE_AGENCY to your .env file.',
+      'Agency is not configured. Set STRIPE_PRICE_AGENCY on the web service (Railway), then redeploy.',
     );
   }
 

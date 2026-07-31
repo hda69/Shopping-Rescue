@@ -375,7 +375,7 @@ export const MESSAGES_FR = {
     subscribeAgency: 'Lancer Agency — $199/mois',
     comparePlansTitle: 'Comparer les offres',
     stripeBanner:
-      'Stripe n’est pas configuré localement. Ajoutez vos vraies clés test dans `.env` (pas les valeurs `sk_test_...` de `.env.example`).',
+      'Le paiement est temporairement indisponible. Réessayez un peu plus tard.',
     devUnlock: 'Dev uniquement : débloquer sans paiement',
     riskLabels: {
       low: 'Risque faible détecté',
