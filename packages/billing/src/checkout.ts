@@ -31,7 +31,7 @@ export async function createFullAuditCheckoutSession(
       siteId: params.siteId ?? '',
       plan: 'full_audit',
     },
-    success_url: `${appUrl}${localizePath('/checkout/success', locale)}?scanId=${params.scanId}&session_id={CHECKOUT_SESSION_ID}`,
+    success_url: `${appUrl}${localizePath('/checkout/success', locale)}?scanId=${params.scanId}&plan=full_audit&session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${appUrl}${localizePath(`/scan/${params.scanId}`, locale)}`,
     payment_intent_data: {
       metadata: {

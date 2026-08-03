@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic';
 export default async function CheckoutSuccessPage({
   searchParams,
 }: {
-  searchParams: Promise<{ scanId?: string; session_id?: string }>;
+  searchParams: Promise<{ scanId?: string; session_id?: string; plan?: string }>;
 }) {
   const params = await searchParams;
 
@@ -18,6 +18,7 @@ export default async function CheckoutSuccessPage({
       locale="en"
       scanId={params.scanId}
       sessionId={params.session_id}
+      plan={params.plan}
       verifyCheckout={verifyCheckoutSessionAndUnlock}
       getSummary={getCheckoutScanSummary}
     />
